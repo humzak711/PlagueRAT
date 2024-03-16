@@ -12,6 +12,4 @@ if __name__ == '__main__':
     PlagueRCE_server.start_server()
 
 # To do:
-# Bug hunt and thoroughly test the server
-# Fill up the exploit toolkit with windows and linux CVE's
 # Build the payload builder
