@@ -10,6 +10,3 @@ if __name__ == '__main__':
     # Start the server
     PlagueRCE_server: PlagueRCE = PlagueRCE(host_ip, host_port)
     PlagueRCE_server.start_server()
-
-# To do:
-# Build the payload builder
