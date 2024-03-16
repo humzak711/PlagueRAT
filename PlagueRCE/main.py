@@ -4,8 +4,8 @@ from modules.PlagueRCE import PlagueRCE
 if __name__ == '__main__':
 
     # Obtain host information 
-    host_ip: str = '127.0.0.1' # input('Enter host ip address: ') 
-    host_port: int = 55555 # int(input('Enter host port: '))
+    host_ip: str = input('Enter host ip address: ') 
+    host_port: int = int(input('Enter host port: '))
      
     # Start the server
     PlagueRCE_server: PlagueRCE = PlagueRCE(host_ip, host_port)
