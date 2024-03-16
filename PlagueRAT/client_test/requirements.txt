@@ -1,5 +1,0 @@
-tkinter
-cryptography
-typing
-base64
-hashlib
