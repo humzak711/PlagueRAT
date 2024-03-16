@@ -54,10 +54,7 @@ it does not have any functions relating to denial of service attacks or anything
 intended to cause harm.
 
 PlagueRCE is an RAT server which takes commands from user input and executes them on a 
-chosen connected client. PlagueRCE supports end to end encryption and has advanced OS detection features,
-if you want to create payloads to work with PlagueRCE, I intentionally created PlagueRCE to require skill
-to create payloads to work with it to limit the amount of skids trying to use this code.
-BUT DON'T WORRY, A PAYLOAD BUILDER FOR PlagueRCE IS IN DEVELOPMENT, NOW ALL THE SKIDS CAN BE HAPPY.
+chosen connected client. PlagueRCE supports end to end encryption and has advanced OS detection features.
 
 All CLI features were decided upon by me, anything you dislike or feel is a 'flaw' or 'bug', just
 let me know, and if it is valid then I will fix it, however some of these things I decided to keep in 
