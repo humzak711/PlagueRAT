@@ -46,7 +46,7 @@
     ░░         ░ ░    ░   ▒   ░ ░   ░  ░░░ ░ ░    ░      
                  ░  ░     ░  ░      ░    ░        ░  ░                                       
                  
-The ultimate RAT package
+<b>The ultimate RAT package
 
 PlagueRAT comes with 2 main tools;<br>
 PlagueRCE - Advanced RAT server with OS detection features and supports end-to-end RSA encryption <br>
@@ -55,5 +55,6 @@ PlagueRCE - Advanced RAT server with OS detection features and supports end-to-e
 PlagueGEN - Advanced payload generator to generate payloads fully compatible with PlagueRCE <br>
 
 
-This is still a work-in-process, feel free to make a pull request and I will look at it.<br>
-<b>I know that you aren't able to send commands at all without a targeted client, will work on fixing this when I have the time</b>
+This is still a work-in-process, feel free to make a pull request and I will look at it.</b><br>
+
+I know that you aren't able to send commands at all without a targeted client, this is the only flaw for me to fix, it is very minor so I will work on fixing this when I have the time
