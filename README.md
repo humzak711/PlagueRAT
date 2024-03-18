@@ -53,3 +53,7 @@ PlagueRCE - Advanced RAT server with OS detection features and supports end-to-e
 
 *COMING SOON*<br>
 PlagueGEN - Advanced payload generator to generate payloads fully compatible with PlagueRCE <br>
+
+
+This is still a work-in-process, feel free to make a pull request and I will look at it.
+<b>I know that you aren't able to send commands at all without a targeted client, will work on fixing this when I have the time</b>
