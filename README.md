@@ -56,5 +56,3 @@ PlagueGEN - Advanced payload generator to generate payloads fully compatible wit
 
 
 This is still a work-in-process, feel free to make a pull request and I will look at it.</b><br>
-
-I know that you aren't able to send commands at all without a targeted client, this is the only flaw for me to fix, it is very minor so I will work on fixing this when I have the time
