@@ -338,6 +338,7 @@ The bytesize of the messages being sent between the server and client is 1024.
             return True
         except Exception as e: # Error should not happen here
             print(e)
+            return True # Should handle error gracefully anyway
 
     # Function to check if user has input a CLI/server command
     def command_option(self, command: str) -> bool:
