@@ -3,6 +3,7 @@ threading
 typing
 sys
 colorama
+logging
 cprint
 hashlib
 base64
