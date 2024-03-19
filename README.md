@@ -46,7 +46,7 @@
     ░░         ░ ░    ░   ▒   ░ ░   ░  ░░░ ░ ░    ░      
                  ░  ░     ░  ░      ░    ░        ░  ░                                       
                  
-<b>The ultimate RAT package
+<b>The ultimate RAT package (IN BETA, STILL IN DEVELOPMENT)
 
 PlagueRAT comes with 2 main tools;<br>
 PlagueRCE - Advanced RAT server with OS detection features and supports end-to-end RSA encryption <br>
