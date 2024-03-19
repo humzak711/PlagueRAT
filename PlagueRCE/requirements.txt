@@ -7,3 +7,4 @@ cprint
 hashlib
 base64
 cryptography
+platform
