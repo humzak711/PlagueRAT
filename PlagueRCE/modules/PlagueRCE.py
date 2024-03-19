@@ -849,7 +849,7 @@ The bytesize of the messages being sent between the server and client is 1024.
                 client_thread = threading.Thread(target=self.receive_response, args=(client_ip,client), daemon=True)
                 client_thread.start()
         except OSError:
-            print(f'WTF DID YOU DO\nQuitting...')
+            logging.critical(f'WTF DID YOU DO\nQuitting...')
         except: # Pretend the error doesn't exist and it will resolve itself
             pass
 
