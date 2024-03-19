@@ -861,6 +861,7 @@ The bytesize of the messages being sent between the server and client is 1024.
         try:
             print(Fore.RED+logo) # Logo color red
             print(Fore.RESET)
+            print(f'Host (your) ip:port - {self.host_ip}:{self.host_port}')
             
             # Create and start new thread to connect new client to server
             connect_thread = threading.Thread(target=self.connect, daemon=True)
