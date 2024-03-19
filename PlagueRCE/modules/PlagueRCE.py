@@ -98,12 +98,12 @@ Connections are made through TCP (transmission control protocol).
 Messages sent between the server and client are sent utf-8 encoded.
 The bytesize of the messages being sent between the server and client is 1024.
     '''
-    def __init__(self, host_ip: str, host_port: int, bytesize: int=1024) -> None:
+    def __init__(self, bytesize: int=1024) -> None:
         ''' Class Initializer '''
 
-        # Server host ip and port number
-        self.host_ip: str = host_ip
-        self.host_port: int = host_port
+        # Obtain host information
+        self.host_ip: str = socket.gethostbyname(socket.gethostname())
+        self.host_port: int = 55555  # You can keep this as is or modify it as needed
 
         # Bytesize of messages being sent between the server and client
         self.bytesize: int = bytesize
