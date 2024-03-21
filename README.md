@@ -59,6 +59,7 @@ singular, or multiple targets at once<br>
 *COMING SOON*<br>
 PlagueGEN -<br>
 Advanced payload generator to generate payloads fully compatible with PlagueRCE<br>
+Payloads are written in Golang<br>
 
 
 This is still a work-in-process, feel free to make a pull request and I will look at it.</b><br>
