@@ -49,12 +49,14 @@
 <b>The ultimate RAT package (IN BETA, STILL IN DEVELOPMENT)
 
 PlagueRAT comes with 2 main tools;<br>
-PlagueRCE - Advanced RAT server with built-in shell + CLI, OS detection features and supports end-to-end RSA encryption<br>
-            Built to be used as a dedicated server for large scale RAT operations, serves as a backdoor to allow RCE on<br>
-            singular, or multiple targets at once<br>
+PlagueRCE -<br>
+Advanced RAT server with built-in shell + CLI, OS detection features and supports end-to-end RSA encryption<br>
+Built to be used as a dedicated server for large scale RAT operations, serves as a backdoor to allow RCE on<br>
+singular, or multiple targets at once<br>
 
 *COMING SOON*<br>
-PlagueGEN - Advanced payload generator to generate payloads fully compatible with PlagueRCE <br>
+PlagueGEN -<br>
+Advanced payload generator to generate payloads fully compatible with PlagueRCE<br>
 
 
 This is still a work-in-process, feel free to make a pull request and I will look at it.</b><br>
