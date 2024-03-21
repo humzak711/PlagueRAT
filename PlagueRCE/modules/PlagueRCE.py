@@ -180,7 +180,7 @@ The bytesize of the messages being sent between the server and client is 1024.
                             client: socket.socket = connection[0] # Get client information
                             encrypted_command: str = self.encrypt_command(command, client)
                             client.send(encrypted_command.encode()) # Send command to client
-                        except:
+                        except: # Catch errors in for loops and continue to ensure for loop doesn't break due to exception
                             continue
                 
                 # Flag to send command to first payload on all clients
@@ -190,7 +190,7 @@ The bytesize of the messages being sent between the server and client is 1024.
                             client: socket.socket = connections[0][0] # Get client information
                             encrypted_command: str = self.encrypt_command(command, client)
                             client.send(encrypted_command.encode()) # Send command to client
-                        except:
+                        except: # Catch errors in for loops and continue to ensure for loop doesn't break due to exception
                             continue
                 
                 # Flag to send command to every payload on all clients
@@ -202,9 +202,9 @@ The bytesize of the messages being sent between the server and client is 1024.
                                     client: socket.socket = connection[0] # Get client information
                                     encrypted_command: str = self.encrypt_command(command, client)
                                     client.send(encrypted_command.encode()) # Send command to client
-                                except:
+                                except: # Catch errors in for loops and continue to ensure for loop doesn't break due to exception
                                     continue
-                        except:
+                        except: # Catch errors in for loops and continue to ensure for loop doesn't break due to exception
                             continue
 
                 # Flag to send command to first payload on all clients using a particular OS
@@ -234,7 +234,7 @@ The bytesize of the messages being sent between the server and client is 1024.
                                 client: socket.socket = self.client_list[client_ip][0][0]
                                 encrypted_command: str = self.encrypt_command(command, client)
                                 client.send(encrypted_command.encode()) # Send command to client
-                        except:
+                        except: # Catch errors in for loops and continue to ensure for loop doesn't break due to exception
                             continue
                 
                 # Flag to send command on all payloads across all clients using a particular OS
@@ -263,7 +263,7 @@ The bytesize of the messages being sent between the server and client is 1024.
                             client: socket.socket = connection[0]
                             encrypted_command: str = self.encrypt_command(command, client)
                             client.send(encrypted_command.encode()) # Send command to client
-                        except:
+                        except: # Catch errors in for loops and continue to ensure for loop doesn't break due to exception
                             continue
 
                 # By default, encrypt command and send to first payload on currently connected client
