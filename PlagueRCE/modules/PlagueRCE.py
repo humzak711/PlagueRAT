@@ -749,7 +749,8 @@ The bytesize of the messages being sent between the server and client is 1024.
 
         # While loop to not allow user to interact with CLI until they have connected to a valid client
         while self.connected_client == None or self.connected_client not in self.client_list.keys():
-            client_ip: str = input("Enter client ip address to connect to: ").strip()
+            client_ip: str = input(Fore.CYAN+"Enter client ip address to connect to: ").strip() # Nice 'candy' looking colour scheme
+            print(Fore.LIGHTMAGENTA_EX) # All text on the CLI is light magenta
 
             if self.command_option(client_ip) == False: # Check if user has input a server command
                 if client_ip not in self.client_list.keys(): # Check if client is connected
@@ -765,8 +766,8 @@ The bytesize of the messages being sent between the server and client is 1024.
         Handles communication with clients
         Choose a client you would like to access, and send commands to be executed by them
         '''
-        print(Fore.LIGHTMAGENTA_EX) # All text on the CLI is light magenta
-        print("Enter 'help' to show all available CLI commands ")
+
+        print(Fore.LIGHTMAGENTA_EX+"\nEnter 'help' to show all available CLI commands ")
         self.startupCLI() # Start the CLI
 
         while True:
@@ -776,7 +777,8 @@ The bytesize of the messages being sent between the server and client is 1024.
                 self.startupCLI()
                 
             # Take user input and carry out the given CLI command or send commands to client
-            command: str = input("Enter command: ").strip()
+            command: str = input(Fore.LIGHTGREEN_EX+"$ ").strip() # Nice looking shell
+            print(Fore.LIGHTMAGENTA_EX) # All text on the CLI is light magenta
             if self.command_option(command) == False: # If input was not CLI/server command, send command to client
                 self.send_option(command, self.connected_client) # Check send option and send command to currently connected client
 
