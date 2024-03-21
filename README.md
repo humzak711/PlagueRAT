@@ -49,7 +49,7 @@
 <b>The ultimate RAT package (IN BETA, STILL IN DEVELOPMENT)<br><br>
 
 
-PlagueRAT comes with 2 main tools;<br><br>
+PlagueRAT comes with 2 main tools;<br>
 
 PlagueRCE -<br>
 Advanced RAT server with built-in shell + CLI, OS detection features and supports end-to-end RSA encryption<br>
