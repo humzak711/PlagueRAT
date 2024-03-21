@@ -46,10 +46,10 @@
     ░░         ░ ░    ░   ▒   ░ ░   ░  ░░░ ░ ░    ░      
                  ░  ░     ░  ░      ░    ░        ░  ░                                       
                  
-<b>The ultimate RAT package (IN BETA, STILL IN DEVELOPMENT)
+<b>The ultimate RAT package (IN BETA, STILL IN DEVELOPMENT)<br><br>
 
 
-PlagueRAT comes with 2 main tools;<br>
+PlagueRAT comes with 2 main tools;<br><br>
 
 PlagueRCE -<br>
 Advanced RAT server with built-in shell + CLI, OS detection features and supports end-to-end RSA encryption<br>
@@ -59,7 +59,7 @@ singular, or multiple targets at once<br>
 *COMING SOON*<br>
 PlagueGEN -<br>
 Advanced payload generator to generate payloads fully compatible with PlagueRCE<br>
-Payloads are written in Golang<br>
+Payloads are written in Golang<br><br>
 
 
 This is still a work-in-process, feel free to make a pull request and I will look at it.</b><br>
