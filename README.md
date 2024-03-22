@@ -59,6 +59,10 @@ singular, or multiple targets at once<br>
 *COMING SOON*<br>
 PlagueGEN -<br>
 Advanced payload generator to generate payloads fully compatible with PlagueRCE<br>
+Support for Windows and most Unix flavours<br>
+Connects to server via TCP reverse-shell<br>
+Supports end-to-end RSA encryption with server<br>
+Ultra stealthy, bypasses most antivirus, including windows defender<br>
 Payloads are written in Golang<br><br>
 
 
