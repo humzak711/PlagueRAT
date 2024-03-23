@@ -46,7 +46,7 @@
     ░░         ░ ░    ░   ▒   ░ ░   ░  ░░░ ░ ░    ░      
                  ░  ░     ░  ░      ░    ░        ░  ░                                       
                  
-<b>The ultimate RAT package (IN BETA, STILL IN DEVELOPMENT)<br><br>
+<b>The ultimate RAT package (IN ALPHA, STILL IN DEVELOPMENT)<br><br>
 
 
 PlagueRAT comes with 2 main tools;<br>
