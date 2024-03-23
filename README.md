@@ -1,4 +1,4 @@
-<h1>PlagueRAT (BETA)</h1>
+<h1>PlagueRAT (Alpha)</h1>
 
 
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣤⣶⣶⠶⠿⠟⠛⠛⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠛⠛⠿⠷⣶⣶⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -51,13 +51,13 @@
 
 PlagueRAT comes with 2 main tools;<br>
 
-PlagueRCE -<br>
+PlagueRCE (Version 1)-<br>
 Advanced RAT server with built-in shell + CLI, OS detection features and supports end-to-end RSA encryption<br>
 Built to be used as a dedicated server for large scale RAT operations, serves as a backdoor to allow RCE on<br>
 singular, or multiple targets at once<br>
 
 *COMING SOON*<br>
-PlagueGEN -<br>
+PlagueGEN (Version 1)-<br>
 Advanced payload generator to generate payloads fully compatible with PlagueRCE<br>
 Support for Windows, most Unix flavours, and hopefully android<br>
 Connects to server via TCP reverse-shell<br>
