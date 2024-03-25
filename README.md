@@ -62,6 +62,7 @@ Advanced payload generator to generate payloads fully compatible with PlagueRCE<
 Support for Windows, most Unix flavours, and hopefully android<br>
 Connects to server via TCP reverse-shell<br>
 Supports end-to-end RSA encryption with server<br>
+Rootkit<br>
 Ultra stealthy, bypasses most antivirus, including windows defender<br>
 Payloads are written in Golang<br><br>
 
