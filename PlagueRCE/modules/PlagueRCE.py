@@ -518,7 +518,8 @@ The bytesize of the messages being sent between the server and client is 1024.
         def change_client() -> None:
             ''' Function for command to connect to a client '''
 
-            client_ip: str = input("Enter client ip address to connect to: ").strip()
+            client_ip: str = input(Fore.GREEN+"Enter client ip address to connect to: ").strip()
+            print(Fore.LIGHTMAGENTA_EX)
             if client_ip in self.client_list.keys(): # Check if client ip is connected to server
                 self.connected_client = client_ip # Change currently connected client
             elif self.command_option(client_ip) == False:
