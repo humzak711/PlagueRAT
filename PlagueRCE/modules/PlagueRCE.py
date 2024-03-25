@@ -310,6 +310,9 @@ The bytesize of the messages being sent between the server and client is 1024.
         ''' Function to handle checking send options '''
 
         try:
+            if len(self.client_list.keys()) == 0:
+                logging.critical("No client's currently connected ;(")
+                return True
             
             # Commands which are one character
             match command[0]:
