@@ -6,8 +6,6 @@ Welcome to PlagueRCE, the ultimate RAT server
 and not executed by the currently connected client.
 - If the command is not a CLI command it will be executed by the currently connected client.
 Ensure each CLI command entered is spelled correctly to prevent unwanted results.
-- If the client who is the currently connected client disconnects, and reconnects again without the user
-changing the currently connected client, the client will reconnect as the currently connected client
 
 Encryption mode: 
 Each generated key pair is a 2048 bit RSA key pair.
