@@ -119,11 +119,11 @@ changing the currently connected client, the client will reconnect as the curren
 
 Send command options<br>
 By default, commands are executed on the first payload on the currently connected client<br>
-$command: $ before a command to execute command on all payloads on currently connected client <br>
-!command: ! before a command to execute command on first payload across all clients <br>
-?!command: ?! before a command to execute command to execute command on all payloads across all clients <br>
-&!command: &! before a command to execute the command on all payloads across all clients using a particular OS<br>
-&command: & before a command to execute the command on first payload on all clients using a particular OS<br>
+$command: $ before a command to execute command on all payloads on currently connected client<br>
+!command: ! before a command to execute command on first payload across all clients<br>
+?command: ? before a command to execute command to execute command on all payloads across all clients<br>
+*command: * before a command to execute the command on first payload on all clients using a particular OS<br>
+&command: & before a command to execute the command on all payloads across all clients using a particular OS<br>
 
 
 User help <br>
