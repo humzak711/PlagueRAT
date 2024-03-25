@@ -31,9 +31,6 @@ CLI works in the following way:
 be executed by the server and not be executed by the chosen client)
 4. In the case of a client disconnecting from the server mid way through sending a command
 or receiving a response, the server will remove the client from the list of connected clients.
-If the client who is the currently connected client disconnects from the server then reconnects
-without the currently connected client being changed, the client will automatically be reset as the
-currently connected client.
 5. Everytime a client sends a response back to the user, it is stored within the response list
 which can be accessed via various commands such as 'current_latest'.
 
@@ -219,7 +216,8 @@ The bytesize of the messages being sent between the server and client is 1024.
                         print(operating_system)
                     
                     # Temporary CLI
-                    chosen_OS: str = input('Input the OS you want to send the command to (case sensitive): ').strip()
+                    chosen_OS: str = input(Fore.GREEN+'Input the OS you want to send the command to (case sensitive): ').strip()
+                    print(Fore.LIGHTMAGENTA_EX)
                     if self.command_option(chosen_OS):
                         return False
                     
@@ -249,7 +247,8 @@ The bytesize of the messages being sent between the server and client is 1024.
                         print(operating_system)
 
                     # Temporary CLI
-                    chosen_OS: str = input('Input the OS you want to send the command to (case sensitive): ').strip()
+                    chosen_OS: str = input(Fore.GREEN+'Input the OS you want to send the command to (case sensitive): ').strip()
+                    print(Fore.LIGHTMAGENTA_EX)
                     if self.command_option(chosen_OS):
                         return False
                     
