@@ -61,7 +61,7 @@ let me know, and if it is valid then I will fix it, however some of these things
 for a reason, mainly because it would keep my code's performance optimised, keep my code clean,
 and most importantly, wouldn't break other parts of my code to implement.
 
-Why the name?
+Why the name?<br>
 This project is named PlagueRCE, as it is intended to be used as a server
 for RAT's which are able to infect multiple clients like a plague.
 From this server the user can go in and out of each client's machine
@@ -71,7 +71,7 @@ most notably; gain a reverse shell on the client.
 
 
 
-The server works in the following way: 
+The server works in the following way:<br>
 1. user connects to client via user input of the chosen clients ip address.
 
 2. user inputs a command to be executed by the chosen client. 
@@ -90,7 +90,7 @@ which can be accessed via various commands such as 'current_latest'.
 
 
 
-Encryption mode:
+Encryption mode:<br>
 Each generated key pair is a 2048 bit RSA key pair. No I am not going to allow the user
 to choose the size of the key pair, it will break my code, 2048 bits is nice, Cry more.
 Server loads up in unencryption mode by default, but can be switched to encryption mode via 
@@ -106,52 +106,52 @@ then don't use it at all as you will only just cause problems with your own oper
 
 
 
-CLI
+CLI<br>
 
 - Upon entering a command, if the command is a CLI command, it will be executed by the server
 and not executed by the currently connected client.
 - If the command is not a CLI command it will be executed by the currently connected client.
 Ensure each CLI command entered is spelled correctly to prevent unwanted results.
 
-/ escapes send options and CLI commands (e.g. /$command will have client execute $command)
+/ escapes send options and CLI commands (e.g. /$command will have client execute $command)<br>
 
-Send command options
-By default, commands are executed on the first payload on the currently connected client
-$command: $ before a command to execute command on all payloads on currently connected client 
-!command: ! before a command to execute command on first payload across all clients 
-?command: ? before a command to execute command to execute command on all payloads across all clients 
-*command: * before a command to execute the command on first payload on all clients using a particular OS
-&command: & before a command to execute the command on all payloads across all clients using a particular OS
-
-
-User help 
-help: Show this message
-quit: Exit the program
-
-Encryption mode
-current_keys: Display current server key pair if in encryption mode
-encryption_mode: Enable encryption mode, and generate a new key pair
-new_keys: Generate new server key pair (dangerous)
-unencryption_mode: Disable encryption mode and delete existing key pair
-
-Current connected client
-current: Show client the user is currently connected to
-current_latest: Show latest response from currently connected client
-current_all: Show all responses from currently connected client
-change: Change the current connected client
-
-All connected clients
-list: List all connected clients and their information
-who_responded: Display list of all clients who have sent a response to server
-responses_amount: Trigger temporary CLI to show specific amount of responses from a client
-responses_latest: Trigger temporary CLI to show the latest response from a client
-responses_all: Display all responses from all clients
-responses_all_OS: Display all responses from all clients using a particular OS
+Send command options<br>
+By default, commands are executed on the first payload on the currently connected client<br>
+$command: $ before a command to execute command on all payloads on currently connected client<br>
+!command: ! before a command to execute command on first payload across all clients<br>
+?command: ? before a command to execute command to execute command on all payloads across all clients<br> 
+*command: * before a command to execute the command on first payload on all clients using a particular OS<br>
+&command: & before a command to execute the command on all payloads across all clients using a particular OS<br>
 
 
+User help<br>
+help: Show this message<br>
+quit: Exit the program<br>
 
-Connection information:
+Encryption mode<br>
+current_keys: Display current server key pair if in encryption mode<br>
+encryption_mode: Enable encryption mode, and generate a new key pair<br>
+new_keys: Generate new server key pair (dangerous)<br>
+unencryption_mode: Disable encryption mode and delete existing key pair<br>
 
-Connections are made through TCP (transmission control protocol).
-Messages sent between the server and client are sent utf-8 encoded.
-The bytesize of the messages being sent between the server and client is 1024.
+Current connected client<br>
+current: Show client the user is currently connected to<br>
+current_latest: Show latest response from currently connected client<br>
+current_all: Show all responses from currently connected client<br>
+change: Change the current connected client<br>
+
+All connected clients<br>
+list: List all connected clients and their information<br>
+who_responded: Display list of all clients who have sent a response to server<br>
+responses_amount: Trigger temporary CLI to show specific amount of responses from a client<br>
+responses_latest: Trigger temporary CLI to show the latest response from a client<br>
+responses_all: Display all responses from all clients<br>
+responses_all_OS: Display all responses from all clients using a particular OS<br>
+
+
+
+Connection information:<br>
+
+Connections are made through TCP (transmission control protocol).<br>
+Messages sent between the server and client are sent utf-8 encoded.<br>
+The bytesize of the messages being sent between the server and client is 1024.<br>
