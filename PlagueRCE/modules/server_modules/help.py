@@ -28,9 +28,9 @@ Send command options
 By default, commands are executed on the first payload on the currently connected client
 $command: $ before a command to execute command on all payloads on currently connected client 
 !command: ! before a command to execute command on first payload across all clients 
-?!command: ?! before a command to execute command to execute command on all payloads across all clients 
-&!command: &! before a command to execute the command on all payloads across all clients using a particular OS
-&command: & before a command to execute the command on first payload on all clients using a particular OS
+?command: ? before a command to execute command to execute command on all payloads across all clients 
+*command: * before a command to execute the command on first payload on all clients using a particular OS
+&command: & before a command to execute the command on all payloads across all clients using a particular OS
 
 User help 
 help: Show this message
