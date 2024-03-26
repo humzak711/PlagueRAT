@@ -595,8 +595,9 @@ The bytesize of the messages being sent between the server and client is 1024.
                     
                 # Get ip for chosen client if necessary
                 if amount_on or latest:
-                    client_ip: str = input("Enter client ip address to list response(s) from: ").strip()
-                
+                    client_ip: str = input(Fore.GREEN+"Enter client ip address to list response(s) from: ").strip()
+                    print(Fore.LIGHTMAGENTA_EX)
+
                     if self.command_option(client_ip): # Check if user input is a CLI command
                         return False
                     
@@ -621,8 +622,9 @@ The bytesize of the messages being sent between the server and client is 1024.
                     if amount_on:
                         amount_available: int = len(responses) # Total amount of responses from client
                         print(f'Amount of responses from client {client_ip}: {amount_available}')
-                        amount: str = input('Input response number to be shown up to: ') # User inputs response number to be given up to
-                        
+                        amount: str = input(Fore.GREEN+'Input response number to be shown up to: ') # User inputs response number to be given up to
+                        print(Fore.LIGHTMAGENTA_EX)
+
                         if self.command_option(amount): # Check if user input is a CLI command
                             return False
                     
@@ -663,7 +665,8 @@ The bytesize of the messages being sent between the server and client is 1024.
                         print(operating_system)
                     
                     # Temporary CLI
-                    operating_system: str = input('Enter operating system you would like to display response(s) from (case sensitive): ').strip()
+                    operating_system: str = input(Fore.GREEN+'Enter operating system you would like to display response(s) from (case sensitive): ').strip()
+                    print(Fore.LIGHTMAGENTA_EX)
                     if self.command_option(operating_system):
                         return False
                     
@@ -771,7 +774,7 @@ The bytesize of the messages being sent between the server and client is 1024.
         print(Fore.LIGHTMAGENTA_EX+"\nEnter 'help' to show all available CLI commands ") 
 
         # User can use their own 2048 bit RSA key pair
-        if input(Fore.GREEN+'Enter y if you would like to use your own RSA 2048 bit key pair (case sensitive): ').strip() == 'y':
+        if input(Fore.GREEN+'Enter y if you would like to use your own RSA 2048 bit key pair (case sensitive): ').strip()  == 'y':
             self.private_key = input('Enter your RSA 2048 bit private key:\n').strip() 
             self.public_key = input('Enter your RSA 2048 bit public key:\n').strip() 
             self.encryption_mode_flag = True
