@@ -283,7 +283,7 @@ The bytesize of the messages being sent between the server and client is 1024.
                 client_response: str = client.recv(self.bytesize).decode()
                 client_response: str = client_response.strip()
                 if client_response == 'P1NGS3RV3R': # Send 'P1NGS3RV3R' from client to server to test connection
-                    return None
+                    continue
                 decrypted_client_response: str = self.decrypt_response(client_response, client)
                 client_OS: str = self.client_list[client_ip][0][2]
                 
