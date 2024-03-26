@@ -49,12 +49,15 @@
 <b>The ultimate RAT package (IN ALPHA, STILL IN DEVELOPMENT)<br><br>
 
 
-PlagueRAT comes with 2 main tools;<br>
+PlagueRAT comes with 3 main tools;<br>
 
 PlagueRCE (Version 1)-<br>
 Advanced RAT server with built-in shell + CLI, OS detection features and supports end-to-end RSA encryption<br>
 Built to be used as a dedicated server for large scale RAT operations, serves as a backdoor to allow RCE on<br>
 singular, or multiple targets at once<br>
+
+RSA-client<br>
+RSA client to work with 2048 bit RSA key pairs, which are fully compatible with PlagueRAT (PlagueRCE and PlagueGEN)
 
 *COMING SOON*<br>
 PlagueGEN (Version 1)-<br>
