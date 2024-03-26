@@ -1,0 +1,12 @@
+socket
+threading
+typing
+sys
+colorama
+logging
+cprint
+hashlib
+base64
+cryptography
+platform
+flask
