@@ -56,7 +56,7 @@ Advanced RAT server with built-in shell + CLI, OS detection features and support
 Built to be used as a dedicated server for large scale RAT operations, serves as a backdoor to allow RCE on<br>
 singular, or multiple targets at once<br>
 
-RSA-client<br>
+RSA-client-<br>
 RSA client to work with 2048 bit RSA key pairs, which are fully compatible with PlagueRAT (PlagueRCE and PlagueGEN)
 
 *COMING SOON*<br>
