@@ -81,9 +81,6 @@ be executed by the server and not be executed by the chosen client)
 
 4. In the case of a client disconnecting from the server mid way through sending a command
 or receiving a response, the server will remove the client from the list of connected clients.
-If the client who is the currently connected client disconnects from the server then reconnects
-without the currently connected client being changed, the client will automatically be reset as the
-currently connected client.
 
 5. Everytime a client sends a response back to the user, it is stored within the response list
 which can be accessed via various commands such as 'current_latest'.
