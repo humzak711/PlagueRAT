@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" lang="en">
+    <head>
+        <title>Decrypt</title>
+
+        <!-- Link CSS stylesheet -->
+        <link rel="stylesheet" href="/static/css/decrypt.css">
+
+        <!-- Include javascript -->
+        <script src="/static/js/decrypt.js" defer></script>
+    </head>
+
+    <body>
+        <header>
+            <h1>Decrypt a Message</h1>
+        </header>
+    
+        <main>
+            <div class="left-container">
+                <form id="decryptForm" method="POST" action="/decrypt">
+                    <label for="privateKey">Private Key:</label>
+                    <div class="input-container">
+                        <textarea id="privateKey" name="private_key" placeholder="Enter Private Key" required></textarea>
+                    </div>
+                    
+                    <label for="message">Cipher-Text:</label>
+                    <div class="input-container">
+                        <textarea id="message" name="cipher_text" placeholder="Enter Cipher-Text" required></textarea>
+                    </div>
+    
+                    {% if ERROR %}
+                        <p class="error">{{ ERROR }}</p>
+                    {% endif %}
+                    <button type="submit" class="submit-btn">Decrypt Message</button>
+                </form>
+                
+            </div>
+    
+            <div class="right-container">
+                {% if decoded_text %}
+                    <div class="output-container">
+                        <h2>Decrypted Message:</h2>
+                        <textarea id="cipherText" readonly>{{ decoded_text }}</textarea>
+                    </div>
+                {% endif %}
+            </div>
+        </main>
+    
+        <footer>
+            <div id="links">
+                <a href="/encrypt"><button class="encrypt-btn">Encrypt</button></a>
+                <a href="/home"><button class="home-btn">Home</button></a>
+                <a href="/generate"><button class="generate-btn">Generate Key-Pair</button></a>
+            </div>
+        </footer>
+    </body>
+    </html>
