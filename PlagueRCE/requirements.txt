@@ -9,3 +9,4 @@ hashlib
 base64
 cryptography
 platform
+flask
