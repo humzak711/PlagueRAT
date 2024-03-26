@@ -771,9 +771,9 @@ The bytesize of the messages being sent between the server and client is 1024.
         print(Fore.LIGHTMAGENTA_EX+"\nEnter 'help' to show all available CLI commands ") 
 
         # User can use their own 2048 bit RSA key pair
-        if input(Fore.GREEN+'Enter y if you would like to use your own RSA 2048 bit key pair (case sensitive): ') == 'y':
-            self.private_key = input('Enter your RSA 2048 bit private key:\n')
-            self.public_key = input('Enter your RSA 2048 bit public key:\n')
+        if input(Fore.GREEN+'Enter y if you would like to use your own RSA 2048 bit key pair (case sensitive): ').strip() == 'y':
+            self.private_key = input('Enter your RSA 2048 bit private key:\n').strip() 
+            self.public_key = input('Enter your RSA 2048 bit public key:\n').strip() 
             self.encryption_mode_flag = True
             print(Fore.LIGHTMAGENTA_EX+'You are now in encryption mode')
 
