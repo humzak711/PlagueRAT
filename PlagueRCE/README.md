@@ -71,19 +71,21 @@ most notably; gain a reverse shell on the client.
 
 
 
-The server works in the following way:<br>
-1. user connects to client via user input of the chosen clients ip address.
+The server works in the following way:<br> 
+1. user connects to client via user input of the chosen clients ip address.<br>
 
-2. user inputs a command to be executed by the chosen client. 
+2. user inputs a command to be executed by the chosen client.<br>
 
 3. client executes the command. (If the command is a CLI command it will
-be executed by the server and not be executed by the chosen client)
+be executed by the server and not be executed by the chosen client)<br>
 
 4. In the case of a client disconnecting from the server mid way through sending a command
-or receiving a response, the server will remove the client from the list of connected clients.
+or receiving a response, the server will remove the client from the list of connected clients.<br>
 
 5. Everytime a client sends a response back to the user, it is stored within the response list
-which can be accessed via various commands such as 'current_latest'.
+which can be accessed via various commands such as 'current_latest'.<br>
+
+Send P1NGS3RV3R to server to test connection from client<br>
 
 
 
