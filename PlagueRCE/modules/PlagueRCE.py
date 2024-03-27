@@ -312,7 +312,7 @@ The bytesize of the messages being sent between the server and client is 1024.
 
         try:
             if len(self.client_list.keys()) == 0:
-                logging.critical("No client's currently connected ;(")
+                logging.critical("No client's are currently connected to server ;(")
                 return True
             
             # Commands which are one character
