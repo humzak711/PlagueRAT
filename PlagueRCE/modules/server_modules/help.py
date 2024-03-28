@@ -7,19 +7,6 @@ and not executed by the currently connected client.
 - If the command is not a CLI command it will be executed by the currently connected client.
 Ensure each CLI command entered is spelled correctly to prevent unwanted results.
 
-Encryption mode: 
-Each generated key pair is a 2048 bit RSA key pair.
-Server loads up in unencryption mode by default, but can be switched to encryption mode via 
-encryption_mode command. When a client connects to the server, it treats the current key pair
-on the server in encryption mode as the clients permanent key pair, so make sure you are
-using encryption mode properly otherwise it can cause problems with server/client communication.
-For this reason, I suggest you to stay on encryption mode the entire time and not generate a new key pair
-when you are working on large scale operations, as it will have a high chance of causing problems.
-When you generate a key pair, configure the key pair with your payload and then have the client
-execute the payload for encrypted communication.
-If you are too stupid and not skilled enough to use encryption mode properly and effectively, 
-then don't use it at all as you will only just cause problems with your own operation.
-
 / escapes send options and CLI commands (e.g. /$command will have client execute $command)
 
 Send command options
@@ -37,7 +24,7 @@ quit: Exit the program
 Encryption mode
 current_keys: Display current server key pair if in encryption mode
 encryption_mode: Enable encryption mode, and generate a new key pair
-new_keys: Generate new server key pair (dangerous)
+new_keys: Generate new server key pair (dangerous) or use own key pair
 unencryption_mode: Disable encryption mode and delete existing key pair
 
 Current connected client
