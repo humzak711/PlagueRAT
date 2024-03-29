@@ -4,6 +4,7 @@ typing
 sys
 colorama
 logging
+time
 cprint
 hashlib
 base64
