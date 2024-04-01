@@ -67,7 +67,7 @@ Connects to server via TCP reverse-shell<br>
 Supports end-to-end RSA encryption with server<br>
 Rootkit<br>
 Reconnects to server incase of connection errors- reconnecting to internet/server temporarily goes offline<br>
-Ultra stealthy, bypasses most antivirus, including windows defender<br>
+Basic antivirus and EDR evasion techniques<br>
 Payloads are written in Golang<br><br>
 
 
