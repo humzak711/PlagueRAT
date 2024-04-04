@@ -1,1 +1,0 @@
-RSA client to work with 2048 bit RSA keys compatible with PlagueRAT
