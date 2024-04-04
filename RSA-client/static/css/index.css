@@ -1,0 +1,73 @@
+
+* {
+    text-align: center;
+}
+
+header {
+    margin-top: 75px;
+}
+
+main {
+    margin-top: 100px;
+}
+
+footer {
+    margin-top: 100px;
+}
+
+.encrypt-btn,
+.decrypt-btn,
+.generate-btn {
+    margin-top: 5px;
+    color: white;
+    padding: 24px 0; /* Adjust vertical padding */
+    width: 450px; /* Set a fixed width for all buttons */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block; /* Ensure buttons are displayed inline */
+    text-align: center; /* Center the button text */
+}
+
+.encrypt-btn {
+    background-color: limegreen;
+} 
+
+.decrypt-btn {
+    background-color: blue;
+}
+
+.generate-btn {
+    background-color: orange;
+}
+
+.encrypt-btn:hover {
+    background-color: green;
+}
+
+.decrypt-btn:hover {
+    background-color: rgb(46, 46, 139);
+}
+
+.generate-btn:hover {
+    background-color: rgb(136, 89, 1);
+}
+
+#rsa-wiki:visited {
+    color: blue;
+}
+
+#rsa-wiki:hover {
+    animation: ChangeColor 0.5s ease forwards;
+}
+
+  /* Animation to slowly change color */
+  @keyframes ChangeColor {
+        from {
+            color: blue;
+        }
+
+        to {
+            color: red;
+        }
+    }

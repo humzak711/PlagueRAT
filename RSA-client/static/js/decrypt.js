@@ -1,0 +1,1 @@
+console.log('Welcome to Open RSA - The easiest and quickest way to use asymmetric RSA cryptography')

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encrypt</title>
+
+    <!-- Link CSS stylesheet -->
+    <link rel="stylesheet" href="/static/css/encrypt.css">
+
+    <!-- Include javascript -->
+    <script src="/static/js/encrypt.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <h1>Encrypt a Message</h1>
+    </header>
+
+    <main>
+        <div class="left-container">
+            <form id="encryptForm" method="POST" action="/encrypt">
+                <label for="publicKey">Public Key:</label>
+                <div class="input-container">
+                    <textarea id="publicKey" name="public_key" placeholder="Enter Public Key" required></textarea>
+                </div>
+                
+                <label for="message">Message:</label>
+                <div class="input-container">
+                    <textarea id="message" name="message" placeholder="Enter Message" required></textarea>
+                </div>
+
+                {% if ERROR %}
+                    <p class="error">{{ ERROR }}</p>
+                {% endif %}
+                <button type="submit" class="submit-btn">Encrypt Message</button>
+            </form>
+            
+        </div>
+
+        <div class="right-container">
+            {% if cipher_text %}
+                <div class="output-container">
+                    <h2>Encrypted Message (base-64):</h2>
+                    <textarea id="cipherText" readonly>{{ cipher_text }}</textarea>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <footer>
+        <div id="links">
+            <a href="/decrypt"><button class="decrypt-btn">Decrypt</button></a>
+            <a href="/home"><button class="home-btn">Home</button></a>
+            <a href="/generate"><button class="generate-btn">Generate Key-Pair</button></a>
+        </div>
+    </footer>
+</body>
+</html> 

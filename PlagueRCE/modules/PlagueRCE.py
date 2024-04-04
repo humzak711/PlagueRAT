@@ -5,7 +5,7 @@ import sys
 from colorama import Fore
 import logging
 import time
-from modules.server_modules.RSAcryptography import cryptography_toolkit
+from modules.server_modules.cryptography import cryptography_toolkit
 from modules.server_modules.logo import logo
 from modules.server_modules.help import help_message
 
@@ -341,15 +341,15 @@ intended to cause harm.
             ''' 
             Function for command to switch on encryption mode 
             and allow user to either generate new key pair or use their own
-            2048 bit RSA key pair
+            4096 bit RSA key pair
             '''
 
             if self.encryption_mode_flag == False:
 
-                # User can use their own 2048 bit RSA key pair
-                if input(Fore.GREEN+'Enter y if you would like to use your own RSA 2048 bit key pair (case sensitive): ').strip()  == 'y':
-                    self.private_key = input('Enter your RSA 2048 bit private key:\n').strip() 
-                    self.public_key = input('Enter your RSA 2048 bit public key:\n').strip() 
+                # User can use their own 4096 bit RSA key pair
+                if input(Fore.GREEN+'Enter y if you would like to use your own RSA 4096 bit key pair (case sensitive): ').strip()  == 'y':
+                    self.private_key = input('Enter your RSA 4096 bit private key:\n').strip() 
+                    self.public_key = input('Enter your RSA 4096 bit public key:\n').strip() 
                     self.encryption_mode_flag = True
                     print(Fore.LIGHTMAGENTA_EX+f'\nYour RSA private key:\n{self.private_key}\nYour RSA public key:\n{self.public_key}\nYou are now in encryption mode')
                     return True
@@ -366,15 +366,15 @@ intended to cause harm.
         def new_keys() -> None:
             ''' 
             Function for command to generate new server key pair in encryption mode or to 
-            change server key pair to user's specified 2048 bit RSA key pair
+            change server key pair to user's specified 4096 bit RSA key pair
             '''
 
             if self.encryption_mode_flag == True:
 
-                # User can use their own 2048 bit RSA key pair
-                if input(Fore.GREEN+'Enter y if you would like to use your own RSA 2048 bit key pair (case sensitive): ').strip()  == 'y':
-                    self.private_key = input('Enter your RSA 2048 bit private key:\n').strip() 
-                    self.public_key = input('Enter your RSA 2048 bit public key:\n').strip() 
+                # User can use their own 4096 bit RSA key pair
+                if input(Fore.GREEN+'Enter y if you would like to use your own RSA 4096 bit key pair (case sensitive): ').strip()  == 'y':
+                    self.private_key = input('Enter your RSA 4096 bit private key:\n').strip() 
+                    self.public_key = input('Enter your RSA 4096 bit public key:\n').strip() 
                     self.encryption_mode_flag = True
                     print(Fore.LIGHTMAGENTA_EX+f'\nYour RSA private key:\n{self.private_key}\nYour RSA public key:\n{self.public_key}\n')
                     return True
@@ -783,10 +783,9 @@ intended to cause harm.
 
         try:
             while True:
-                # Receive, decode, and decrypt the response
-                encrypted_client_OS: str = client.recv(self.bytesize).decode()
-                encrypted_client_OS: str = encrypted_client_OS.strip()
-                client_OS: str = self.decrypt_response(encrypted_client_OS, client)
+                # OS should be sent decrypted for simplicity
+                client_OS: str = client.recv(self.bytesize).decode()
+                client_OS: str = client_OS.strip()
 
                 if len(client_OS) == 0:
                     client_OS: str = 'Unknown'

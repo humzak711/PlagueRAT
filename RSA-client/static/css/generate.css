@@ -1,0 +1,105 @@
+* {
+    text-align: center;
+}
+
+h1 {
+    margin-top: 50px;
+}
+ 
+#generateForm {
+    margin-top: 25px;
+}
+
+.key-container {
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center the flex items horizontally */
+}
+
+.divider {
+    width: 2px; /* Set the width of the divider */
+    background-color: black; /* Set the color of the divider */
+    margin: 0 20px; /* Adjust spacing around the divider */
+}
+
+#privateKey {
+    width: 400px; 
+    height: 200px;
+    margin: 10px;
+    resize: none;
+
+}
+
+#publicKey {
+    width: 400px;
+    height: 200px;
+    margin: 10px;
+    resize: none;
+}
+
+#warning1 {
+    color: red;
+}
+
+#warning2 {
+    color: green;
+}
+
+#links {
+    margin-top: 30px;
+}
+
+.encrypt-btn,
+.decrypt-btn,
+.home-btn {
+    color: white;
+    padding: 8px 0; /* Adjust vertical padding */
+    width: 150px; /* Set a fixed width for all buttons */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block; /* Ensure buttons are displayed inline */
+    text-align: center; /* Center the button text */
+}
+
+.encrypt-btn {
+    background-color: limegreen;
+}
+
+.decrypt-btn {
+    background-color: blue;
+}
+
+.home-btn {
+    background-color: red;
+}
+
+.encrypt-btn:hover {
+    background-color: green;
+}
+
+.decrypt-btn:hover {
+    background-color: rgb(46, 46, 139);
+}
+
+.home-btn:hover {
+    background-color: rgb(165, 57, 57);
+}
+
+#rsa-wiki:visited {
+    color: blue;
+}
+
+#rsa-wiki:hover {
+    animation: ChangeColor 0.5s ease forwards;
+}
+
+  /* Animation to slowly change color */
+  @keyframes ChangeColor {
+        from {
+            color: blue;
+        }
+
+        to {
+            color: red;
+        }
+    }

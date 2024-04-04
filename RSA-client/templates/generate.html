@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Key-Pair</title>
+
+    <!-- Link CSS stylesheet -->
+    <link rel="stylesheet" href="/static/css/generate.css">
+
+    <!-- Include javascript -->
+    <script src="/static/js/generate.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <h1>Generate a key-pair</h1>
+        <p1>Generate a 2048 bit RSA key-pair</p1><br><br>
+    </header>
+ 
+    <main>
+        <div class="key-container">
+            <div class="key">
+                {% if private_key %}
+                    <h2>Private Key:</h2>
+                    <textarea id="privateKey" readonly>{{ private_key }}</textarea>
+                    <br><p1 id="warning1">WARNING: STORE YOUR PRIVATE KEY SOMEWHERE SAFE,<br>NEVER SHARE YOUR PRIVATE KEY WITH ANYONE</p1>
+                {% endif %}
+            </div>
+    
+            <div class="divider"></div>
+    
+            <div class="key">
+                {% if public_key %}
+                    <h2>Public Key:</h2>
+                    <textarea id="publicKey" readonly>{{ public_key }}</textarea>
+                    <br><p1 id="warning2">STORE YOUR PUBLIC KEY SOMEWHERE SAFE,<br>YOU CAN SHARE YOUR PUBLIC KEY WITH OTHERS</p1>
+                {% endif %}
+            </div>
+        </div>
+    </main>    
+
+    <footer>
+        <div id="links">
+            <a href="/decrypt"><button class="decrypt-btn">Decrypt</button></a>
+            <a href="/home"><button class="home-btn">Home</button></a>
+            <a href="/encrypt"><button class="encrypt-btn">Encrypt</button></a>
+            <br><br><br><a id="rsa-wiki" target="_blank" href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">How does RSA encryption work?</a>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,74 @@
+* {
+    text-align: center;
+}
+
+h1 {
+    margin-top: 20px;
+}
+
+.left-container,
+.right-container {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.input-container {
+    margin-top: 5px;
+}
+
+textarea {
+    width: 400px;
+    height: 150px;
+    margin: 10px;
+    resize: none;
+}
+
+.error {
+    color: red;
+}
+
+#links {
+    margin-top: 25px;
+}
+
+.submit-btn,
+.decrypt-btn,
+.home-btn,
+.generate-btn {
+    color: white;
+    padding: 8px 0; /* Adjust vertical padding */
+    width: 150px; /* Set a fixed width for all buttons */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block; /* Ensure buttons are displayed inline */
+    text-align: center; /* Center the button text */
+}
+
+.submit-btn {
+    background-color: limegreen;
+}
+
+.decrypt-btn {
+    background-color: blue;
+}
+
+.home-btn {
+    background-color: red;
+}
+
+.generate-btn {
+    background-color: orange;
+}
+
+.submit-btn:hover {
+    background-color: green;
+}
+
+.decrypt-btn:hover {
+    background-color: rgb(46, 46, 139);
+}
+
+.home-btn:hover {
+    background-color: rgb(165, 57, 57);
+}
