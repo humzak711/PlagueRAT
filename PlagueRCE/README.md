@@ -96,6 +96,10 @@ Before using encryption mode, please note that it will not work properly with la
 output data and therefore I do not recommend using encryption mode at all.<br>
 
 Each generated key pair is a 4096 bit RSA key pair.<br>
+Why 4096 bit? any lower won't handle much data, any larger will take too much 
+computer power, it's for the users own safety (I only expect less skilled pentesters
+to use this rather than coding their own RAT)<br>
+
 When a client connects to the server, it treats the current key pair
 on the server in encryption mode as the clients permanent key pair, so make sure you are
 using encryption mode properly otherwise it can cause problems with server/client communication.<br>
