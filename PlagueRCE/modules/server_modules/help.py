@@ -21,7 +21,7 @@ User help
 help: Show this message
 quit: Exit the program
 
-Encryption mode
+Encryption mode (NOT RECOMMENDED)
 current_keys: Display current server key pair if in encryption mode
 encryption_mode: Enable encryption mode, and generate a new key pair
 new_keys: Generate new server key pair (dangerous) or use own key pair
