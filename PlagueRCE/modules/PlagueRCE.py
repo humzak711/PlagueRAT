@@ -724,7 +724,7 @@ intended to cause harm.
         Choose a client you would like to access, and send commands to be executed by them
         '''
         try:
-            if input(Fore.GREEN+"Would you like to startup in encryption mode? Enter 'y' for yes (case sensitive): ").strip() == "y":
+            if input(Fore.GREEN+"Would you like to startup in encryption mode? Enter 'y' for yes (case sensitive)\n(ENCRYPTION MODE IS NOT RECOMMENDED): ").strip() == "y":
                 print(Fore.LIGHTMAGENTA_EX)
                 self.command_option('encryption_mode')
             print(Fore.LIGHTMAGENTA_EX+"\nEnter 'help' to show all available CLI commands ") 
