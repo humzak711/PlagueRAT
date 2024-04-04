@@ -292,11 +292,9 @@ intended to cause harm.
                         return True
                     self.send_command(command, client_ip)
                     return True
-        except Exception as e: # Error should not happen here
-            logging.exception(f"Error sending command:\n{e}") # Log error to console
-            logging.critical('Sending command failed') 
-            return True # Error should be handled gracefully 
-
+        except: 
+            return False
+            
     # Function to check if user has input a CLI/server command
     def command_option(self, command: str) -> bool:
         ''' 
