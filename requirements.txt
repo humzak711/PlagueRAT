@@ -2,7 +2,6 @@ sockets
 typing
 colorama
 cprint
-base64
 cryptography
 platform
 flask
