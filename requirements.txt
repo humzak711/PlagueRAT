@@ -1,7 +1,6 @@
 sockets
 typing
 colorama
-time
 cprint
 hashlib
 base64
