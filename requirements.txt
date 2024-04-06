@@ -1,6 +1,5 @@
 sockets
 typing
-sys
 colorama
 logging
 time
