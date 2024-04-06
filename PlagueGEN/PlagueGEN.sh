@@ -23,7 +23,7 @@ package main
 
 import (
 	"net"
-	"packages/PlagueGEN/code/packages" // Import my local packages
+	"packages/PlagueGEN/Code/packages" // Import my local packages
 	"runtime"
 	"strings"
 )
@@ -75,7 +75,7 @@ package main
 
 import (
     "net"
-    "packages/PlagueGEN/code/packages" // Import my local packages
+    "packages/PlagueGEN/Code/packages" // Import my local packages
     "runtime"
 )
 
