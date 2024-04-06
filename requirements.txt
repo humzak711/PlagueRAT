@@ -2,7 +2,6 @@ sockets
 typing
 colorama
 cprint
-hashlib
 base64
 cryptography
 platform
