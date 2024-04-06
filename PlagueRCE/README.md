@@ -68,7 +68,7 @@ for RAT's which are able to infect multiple clients like a plague.
 From this server the user can go in and out of each client's machine
 to then carry out RCE (remote code execution).
 From this RCE, the user can do various things,
-most notably; gain a reverse shell on the client.<br>
+most notably; gain a reverse shell on the client through a utility such as netcat.<br>
 
 
 
