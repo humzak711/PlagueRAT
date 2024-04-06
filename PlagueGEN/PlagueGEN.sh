@@ -18,7 +18,7 @@ if [ "$use_encryption" == "y" ]; then
     IFS= read -r -d '' private_key
 
     # Generate Go main.go file
-    cat <<EOF > code/main.go
+    cat <<EOF > Code/main.go
 package main
 
 import (
@@ -70,7 +70,7 @@ EOF
     
 else
     # Generate Go main.go file
-    cat <<EOF > code/main.go
+    cat <<EOF > Code/main.go
 package main
 
 import (
