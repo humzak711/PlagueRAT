@@ -1,7 +1,6 @@
 sockets
 typing
 colorama
-logging
 time
 cprint
 hashlib
