@@ -3,5 +3,4 @@ typing
 colorama
 cprint
 cryptography
-platform
 flask
