@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Prompt user for server IP address
-read -p "Enter the server IP address: " server_ip
+read -p "Enter the server IP address and port (IP:port): " server_ip
 echo "server_ip: $server_ip"
 
 # Prompt user for encryption mode
