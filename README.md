@@ -75,7 +75,8 @@ Payloads are written in Golang<br><br>
 
 This is still a work-in-process, feel free to make a pull request and I will look at it.</b><br>
 
-To get started run git clone https://github.com/humzak711/PlagueRAT.git<br>
+To get started run the following commands:<br>
+git clone https://github.com/humzak711/PlagueRAT.git<br>
 cd PlagueRAT <br>
 go mod init packages<br>
 go mod tidy<br>
