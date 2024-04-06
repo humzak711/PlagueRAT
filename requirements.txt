@@ -1,5 +1,4 @@
 sockets
-threading
 typing
 sys
 colorama
