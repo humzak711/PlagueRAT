@@ -7,6 +7,22 @@ header {
     margin-top: 75px;
 }
 
+/* Epic animation lol */
+@keyframes Plague {
+    0% {color: red;}
+    25% {color: orange;}
+    50% {color: orangered;}
+    75% {color: rgb(89, 13, 13);}
+    100% {color: red;}
+}
+
+h1 {
+    color: red;
+    animation-name: Plague;
+    animation-iteration-count: infinite;
+    animation-duration: 5s;
+}
+
 main {
     margin-top: 100px;
 }
