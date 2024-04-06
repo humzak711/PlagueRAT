@@ -62,7 +62,6 @@ singular, or multiple targets at once<br>
 RSA-client-<br>
 RSA client to work with 4096 bit RSA key pairs compatible with PlagueRAT
 
-*COMING SOON*<br>
 PlagueGEN (Version 1)-<br>
 Advanced payload generator to generate payloads fully compatible with PlagueRCE<br>
 Support for Windows, most Unix flavours, and hopefully android<br>
