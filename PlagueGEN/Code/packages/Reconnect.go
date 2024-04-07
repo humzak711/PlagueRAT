@@ -10,6 +10,7 @@ func Reconnect(conn *net.Conn, server_address string, conn_update chan<- *net.Co
 
 	// Infinite loop to constantly check for connection errors
 	for {
+		time.Sleep(1 * time.Second) // Prevent high CPU usage
 
 		// Second check if current client - server connection is valid
 		if !IsConnActive(*conn) {
@@ -24,6 +25,5 @@ func Reconnect(conn *net.Conn, server_address string, conn_update chan<- *net.Co
 				conn_update <- conn
 			}
 		}
-		time.Sleep(1 * time.Second) // Prevent high CPU usage
 	}
 }
