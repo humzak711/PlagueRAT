@@ -1,4 +1,3 @@
-import hashlib
 import base64
 from typing import Tuple
 from cryptography.hazmat.backends import default_backend
@@ -16,13 +15,6 @@ class cryptography_toolkit:
     def __init__(self, bytesize: int=1024) -> None:
         ''' Class Initializer '''
         self.bytesize: int = bytesize
-
-    # Function to hash data
-    def hash_message(message: str) -> hash:
-        ''' Hashes message in a way which is designed to be deterministic '''
-
-        hashed_message: hash = hashlib.sha256(message.encode()).hexdigest()
-        return hashed_message
 
     # Function to generate key pair
     def generate_key_pair(keysize: int=4096) -> Tuple[bytes, bytes]:
