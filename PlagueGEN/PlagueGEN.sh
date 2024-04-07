@@ -48,7 +48,6 @@ $private_key
 
 	// Connect to PlagueRCE server
 	conn, _ := packages.ConnectToServer(server_address)
-    time.Sleep(2 * time.Second) // Prevent server side race condition
 
 	// Create a channel to notify the handler about the updated connection
 	var conn_update chan *net.Conn = make(chan *net.Conn)
@@ -87,7 +86,6 @@ func main() {
 
     // Connect to PlagueRCE server
     conn, _ := packages.ConnectToServer(server_address)
-    time.Sleep(2 * time.Second) // Prevent server side race condition
 
     // Create a channel to notify the handler about the updated connection
     var conn_update chan *net.Conn = make(chan *net.Conn)
