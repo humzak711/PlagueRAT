@@ -292,9 +292,9 @@ intended to cause harm.
                         return True
                     self.send_command(command, client_ip)
                     return True
-        except: 
+        except:
             return False
-            
+
     # Function to check if user has input a CLI/server command
     def command_option(self, command: str) -> bool:
         ''' 
@@ -787,6 +787,10 @@ intended to cause harm.
 
                 if len(client_OS) == 0:
                     client_OS: str = 'Unknown'
+
+                # In case of race condition
+                client_OS: str = client_OS.removeprefix('P1NGS3RV3R')
+                client_OS: str = client_OS.removesuffix('P1NGS3RV3R')
                 
                 # Store the clients OS
                 if client_OS not in self.OS_list:
