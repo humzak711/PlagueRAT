@@ -26,7 +26,6 @@ import (
 	"packages/PlagueGEN/Code/packages" // Import my local packages
 	"runtime"
 	"strings"
-    "time"
 )
 
 func main() {
@@ -77,7 +76,6 @@ import (
     "net"
     "packages/PlagueGEN/Code/packages" // Import my local packages
     "runtime"
-    "time"
 )
 
 func main() {
