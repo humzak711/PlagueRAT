@@ -68,7 +68,7 @@ CLI payload generator to generate payloads fully compatible with PlagueRCE<br>
 Support for Windows, and most Unix flavours<br>
 Connects to server via TCP reverse-shell<br>
 Supports end-to-end RSA encrypted communications with server<br>
-Basic rootkit<br>
+Basic rootkit *COMING SOON*<br>
 Reconnects to server incase of connection errors (prolongued access)- reconnecting to internet/server temporarily goes offline<br>
 Payloads are written in Golang<br><br>
 
