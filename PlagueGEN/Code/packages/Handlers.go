@@ -35,6 +35,9 @@ func Handler(conn net.Conn, OS_info string, conn_update <-chan *net.Conn) {
 
 		// Extract the command from the buffer
 		var command string = string(buf[:n])
+		if len(command) == 0 {
+			continue
+		}
 
 		// Execute the command
 		var output string = Execute_on_OS(OS_info, command)
