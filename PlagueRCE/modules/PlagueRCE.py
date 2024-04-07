@@ -205,6 +205,9 @@ intended to cause harm.
 
         try:
             while True:
+                if client_ip not in self.client_list:
+                    self.disconnect(client_ip, client)
+                    return None
                 # Receive, decode, and decrypt the response
                 client_response: str = client.recv(self.bytesize).decode()
                 client_response: str = client_response.strip()
@@ -215,7 +218,7 @@ intended to cause harm.
                 
                 # In the case of an empty response
                 if len(decrypted_client_response) == 0:
-                    decrypted_client_response: str = 'Empty response ;('
+                    continue
         
                 # Add response to the response list      
                 if client_OS in self.responses_list.keys():
@@ -229,6 +232,7 @@ intended to cause harm.
                     self.responses_list[client_OS] = [(client_ip,[decrypted_client_response])]
         except: 
             self.disconnect(client_ip, client)
+            return None
 
 
     ''' Functions to handle CLI '''
