@@ -9,7 +9,6 @@ from cryptography.hazmat.primitives import hashes
 class cryptography_toolkit:
     ''' 
     Ready made toolkit for RSA cryptography 
-    and deterministic hashing
     '''
     
     def __init__(self, bytesize: int=1024) -> None:
