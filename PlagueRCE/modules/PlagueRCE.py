@@ -205,9 +205,6 @@ intended to cause harm.
 
         try:
             while True:
-                if client_ip not in self.client_list:
-                    self.disconnect(client_ip, client)
-                    return None
                 # Receive, decode, and decrypt the response
                 client_response: str = client.recv(self.bytesize).decode()
                 client_response: str = client_response.strip()
@@ -216,9 +213,13 @@ intended to cause harm.
                 decrypted_client_response: str = self.decrypt_response(client_response, client)
                 client_OS: str = self.client_list[client_ip][0][2]
                 
-                # In the case of an empty response
+                if client_ip not in self.client_list:
+                    return None
+                
+                # Client side can't send empty responses, to prevent resource exhaustion vulnerability
                 if len(decrypted_client_response) == 0:
-                    continue
+                    self.disconnect(client_ip, client)
+                    return None
         
                 # Add response to the response list      
                 if client_OS in self.responses_list.keys():
