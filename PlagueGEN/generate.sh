@@ -104,12 +104,27 @@ EOF
 fi
 
 # Compile Go code
-go build -o Code/main Code/main.go
+if go build -o Code/main Code/main.go; then
+    echo "Go code compiled successfully"
+else
+    echo "Error: Compilation failed" >&2
+    exit 1
+fi
 
 # Move executable to Payloads directory
-mv Code/main Payloads/main
+if mv Code/main Payloads/main; then
+    echo "Executable moved to Payloads directory"
+else
+    echo "Error: Failed to move executable" >&2
+    exit 1
+fi
 
 # Delete main.go from code directory
-rm Code/main.go
+if rm Code/main.go; then
+    echo "main.go deleted from code directory"
+else
+    echo "Error: Failed to delete main.go" >&2
+    exit 1
+fi
 
 echo "Go code compiled and executable moved to Payloads directory"
