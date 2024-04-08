@@ -85,3 +85,20 @@ pip3 install -r requirements.txt<br>
 pre-requisites:<br>
 python 3.11<br>
 Golang compiler<br>
+
+
+<b>SCREENSHOTS:<br>
+
+PlagueRCE:<br>
+
+![Screenshot 2024-04-08 005631](https://github.com/humzak711/PlagueRAT/assets/139543666/a19669ee-ee3f-4688-b1dc-3924eeeadbef) <br>
+
+![Screenshot 2024-04-08 004818](https://github.com/humzak711/PlagueRAT/assets/139543666/7f7eb4d7-135b-4272-9380-bdd7459fd819) <br>
+
+![Screenshot 2024-04-08 004839](https://github.com/humzak711/PlagueRAT/assets/139543666/871b865d-43fd-4413-97e2-3d32d550ab38) <br>
+ 
+<br>
+RSA-client:<br>
+
+![Screenshot 2024-04-08 010103](https://github.com/humzak711/PlagueRAT/assets/139543666/1e324b63-5cbc-4a7f-9192-eac1659ff509) <br>
+</b>
