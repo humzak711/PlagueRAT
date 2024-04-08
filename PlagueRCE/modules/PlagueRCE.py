@@ -97,7 +97,7 @@ intended to cause harm.
             return response
         
     # Handle sending commands to client
-    def send_command(self, command: str, client_ip: str, current_all: bool=False, all_clients: bool=False, all_clients_payloads: bool=False, all_OS: bool=False, all_OS_payloads: bool=False) -> None:
+    def send_command(self, command: str, client_ip: str, current_all: bool=False, all_clients: bool=False, all_clients_payloads: bool=False, all_OS: bool=False, all_OS_payloads: bool=False) -> False:
         ''' Function to send a command to the client '''
 
         try:
@@ -248,7 +248,7 @@ intended to cause harm.
         try:
             if len(self.client_list.keys()) == 0:
                 logging.critical("No client's are currently connected to server ;(")
-                return True
+                return False
             
             # Commands which are one character
             match command[0]:
@@ -257,7 +257,7 @@ intended to cause harm.
                 case '/':
                     if client_ip not in self.client_list.keys(): # Ensure current connected client is set
                         logging.critical('Current connected client is not set')
-                        return True
+                        return False
                     command: str = command[1:]
                     self.send_command(command, client_ip) # Send command to first payload for currently connected client as default
                     return True
@@ -266,7 +266,7 @@ intended to cause harm.
                 case '$':
                     if client_ip not in self.client_list.keys(): # Ensure current connected client is set
                         logging.critical('Current connected client is not set')
-                        return True
+                        return False
                     command: str = command[1:]
                     self.send_command(command, client_ip, current_all=True)
                     return True
@@ -298,7 +298,7 @@ intended to cause harm.
                 case _:
                     if client_ip not in self.client_list.keys(): # Ensure current connected client is set
                         logging.critical('Current connected client is not set')
-                        return True
+                        return False
                     self.send_command(command, client_ip)
                     return True
         except:
@@ -320,7 +320,7 @@ intended to cause harm.
             print(f'\n{help_message}\n') # Display CLI help message for user
 
         # Function for command to check if user has typed 'quit' command
-        def check_quit(message: str) -> bool:
+        def check_quit(message: str) -> False:
             '''Function for command to check if user would like to exit server'''
 
             # Instructions for server to exit
@@ -344,7 +344,7 @@ intended to cause harm.
                 print('Currently not in encryption mode')
         
         # Function for command to generate new key pair and switch on encryption mode
-        def encryption_mode() -> None:
+        def encryption_mode() -> bool:
             ''' 
             Function for command to switch on encryption mode 
             and allow user to either generate new key pair or use their own
@@ -368,9 +368,10 @@ intended to cause harm.
                 print(f'\nYour RSA private key:\n{self.private_key}\nYour RSA public key:\n{self.public_key}\nYou are now in encryption mode')
             else:
                 print('Already in encryption mode')
+                return False
         
         # Function for command to generate new server key pair in encryption mode
-        def new_keys() -> None:
+        def new_keys() -> bool:
             ''' 
             Function for command to generate new server key pair in encryption mode or to 
             change server key pair to user's specified 4096 bit RSA key pair
@@ -392,6 +393,7 @@ intended to cause harm.
                 print(f'\nYour new RSA private key:\n{self.private_key}\nYour new RSA public key:\n{self.public_key}\n')
             else:
                 print('You are not in encryption mode')
+                return False
         
         # Function for command to delete server key pair and switch off encryption mode
         def unencryption_mode() -> None:
@@ -417,7 +419,7 @@ intended to cause harm.
             # Check if current connected client is valid
             if self.connected_client is None or self.connected_client not in self.client_list.keys():
                 print('User is currently not connected to a client')
-                return False
+                return None
             
             client_OS: str = self.client_list[self.connected_client][0][2]
             all_ports: list[int] = [] # List to store ports for all current connected clients active connections 
@@ -432,13 +434,13 @@ intended to cause harm.
             # Check if current connected client is valid
             if self.connected_client is None or self.connected_client not in self.client_list.keys():
                 print('User is currently not connected to a client')
-                return False
+                return None
             
             client_OS: str = self.client_list[self.connected_client][0][2]
             print(f'Current connected client\'s operating system: {client_OS}')
 
         # Function for command to display responses from currently connected client
-        def current_client_responses(all: bool=False) -> None:
+        def current_client_responses(all: bool=False) -> False:
             ''' Function for command to display responses from currently connected client '''
             
             client_ip: str = self.connected_client
@@ -520,7 +522,7 @@ intended to cause harm.
             # Ensure at least one OS is available
             if len(self.client_list.keys()) == 0:
                 print('No clients are currently connected to server ;(')
-                return False
+                return None
             # Display all operating systems being used by clients
             print('\nAll operating systems being used by clients: ')
             for operating_system in self.OS_list.keys():
@@ -543,7 +545,7 @@ intended to cause harm.
                 print('No responses have been received ;(')
         
         # Function for command to list stored responses from clients
-        def list_responses(amount_on: bool=False, latest: bool=False, all_responses: bool=False, all_OS: bool=False) -> None:
+        def list_responses(amount_on: bool=False, latest: bool=False, all_responses: bool=False, all_OS: bool=False) -> bool:
             ''' Function for command to list all responses from given clients '''
             
             try:
