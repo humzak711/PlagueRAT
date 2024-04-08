@@ -1,3 +1,4 @@
+sockets
 typing
 colorama
 cprint
