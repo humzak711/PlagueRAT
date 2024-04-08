@@ -91,7 +91,7 @@ Send P1NGS3RV3R to server to test connection from client<br>
 
 
 Encryption mode (NOT RECOMMENDED):<br>
-ENCRYPTION MODE DOES NOT SUPPORT LARGE INPUT OR OUTPUT DATA
+ENCRYPTION MODE DOES NOT SUPPORT LARGE INPUT OR OUTPUT DATA AND IS THEREFORE NOT RECOMMENDED
 Before using encryption mode, please note that it will not work properly with large input or
 output data and therefore I do not recommend using encryption mode at all.<br>
 
