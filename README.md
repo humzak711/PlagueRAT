@@ -78,8 +78,8 @@ This is still a work-in-process, feel free to make a pull request and I will loo
 
 
 To get started run the following commands:<br>
-<code>git clone https://github.com/humzak711/PlagueRAT.git</code><br>
-<code>cd PlagueRAT && go mod init packages && go mod tidy && pip3 install -r requirements.txt</code><br>
+<clipboard-copy><code>git clone https://github.com/humzak711/PlagueRAT.git</code></clipboard-copy><br>
+<clipboard-copy><code>cd PlagueRAT && go mod init packages && go mod tidy && pip3 install -r requirements.txt</code></clipboard-copy><br>
 
 pre-requisites:<br>
 python 3.11<br>
