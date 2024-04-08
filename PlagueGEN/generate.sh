@@ -29,9 +29,6 @@ if [ "$use_encryption" == "y" ]; then
         private_key+="$line\n"
     done
 
-    echo $public_key
-    echo $private_key
-
     # Generate Go main.go file
     cat <<EOF > Code/main.go
 package main
