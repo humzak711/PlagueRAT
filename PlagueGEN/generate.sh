@@ -12,10 +12,25 @@ if [ "$use_encryption" == "y" ]; then
    
     echo "Encryption mode selected"
     echo "Insert 4096 bit RSA public key (terminate with Ctrl+D when done):"
-    IFS= read -r -d '' public_key
+    public_key=""
+    while IFS= read -r line; do
+        if [[ "$line" == "END" ]]; then
+            break
+        fi
+        public_key+="$line\n"
+    done
 
     echo "Insert 4096 bit RSA private key (terminate with Ctrl+D when done):"
-    IFS= read -r -d '' private_key
+    private_key=""
+    while IFS= read -r line; do
+        if [[ "$line" == "END" ]]; then
+            break
+        fi
+        private_key+="$line\n"
+    done
+
+    echo $public_key
+    echo $private_key
 
     # Generate Go main.go file
     cat <<EOF > Code/main.go
@@ -30,13 +45,10 @@ import (
 
 func main() {
 	// Hardcoded RSA public key
-	const public_key string = `
-$public_key
-`
+	const public_key string = "$public_key"
 	// Hardcoded RSA private key
-	const private_key string = `
-$private_key
-`
+	const private_key string = "$private_key"
+
 	// Format RSA keys properly
 	// Remove leading and trailing whitespaces from RSA keys
 	var formatted_public_key string = strings.TrimSpace(public_key)
