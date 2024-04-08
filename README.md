@@ -82,7 +82,7 @@ cd PlagueRAT <br>
 go mod init packages<br>
 go mod tidy<br>
 pip3 install -r requirements.txt<br>
-<code>
+</code>
 
 pre-requisites:<br>
 python 3.11<br>
