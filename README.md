@@ -80,8 +80,10 @@ This is still a work-in-process, feel free to make a pull request and I will loo
 To get started run the following commands:<br>
 
 <code>git clone https://github.com/humzak711/PlagueRAT.git</code><br>
-<code>cd PlagueRAT && pip3 install -r requirements.txt</code><br>
-<code>go mod init packages && go mod tidy</code><br>
+<code>cd PlagueRAT</code><br>
+<code>pip3 install -r requirements.txt</code><br>
+<code>go mod init packages</code><br>
+<code>go mod tidy</code><br>
 
 
 pre-requisites:<br>
