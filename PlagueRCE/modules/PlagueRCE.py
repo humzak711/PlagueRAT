@@ -9,7 +9,7 @@ from modules.server_modules.cryptography import cryptography_toolkit
 from modules.server_modules.logo import logo
 from modules.server_modules.help import help_message
 
-
+# This code is so unreadable, this is why you use multiple classes and polymorphism ;(
 # MY CODE IS FOR EDUCATIONAL PURPOSES AND ETHICAL USE ONLY
 class PlagueRCE:
     ''' 
