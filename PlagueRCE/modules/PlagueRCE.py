@@ -22,12 +22,16 @@ Please note: this server is strictly to be used for pentesting only, therefore
 it does not have any functions relating to denial of service attacks or anything else 
 intended to cause harm.
     '''
-    def __init__(self, host_port: int=55555, bytesize: int=1024, RATE_LIMIT_TIME: float | int=0.5) -> None:
+    def __init__(self, bytesize: int=1024, RATE_LIMIT_TIME: float | int=0.5) -> None:
         ''' Class Initializer '''
+
+        print(Fore.RED+logo+Fore.RESET) # Logo color red
 
         # Obtain host information
         self.host_ip: str = socket.gethostbyname(socket.gethostname()) # Obtain host ip address
-        self.host_port: int = host_port
+        self.host_port: int = int(input("Enter server port to listen for connections on: "))
+
+        print(Fore.CYAN+f'Host (your) ip:port - {self.host_ip}:{self.host_port}'+Fore.RESET)
 
         # Bytesize of messages being sent between the server and client
         self.bytesize: int = bytesize
@@ -842,9 +846,6 @@ intended to cause harm.
         ''' Function to start the server '''
 
         try:
-            print(Fore.RED+logo+Fore.RESET) # Logo color red
-            print(Fore.CYAN+f'Host (your) ip:port - {self.host_ip}:{self.host_port}'+Fore.RESET)
-            
             # Create and start new thread to connect new client to server
             connect_thread = threading.Thread(target=self.connect, daemon=True)
             connect_thread.start()
