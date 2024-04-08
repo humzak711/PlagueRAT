@@ -75,18 +75,16 @@ Payloads are written in Golang<br><br><br>
 
 This is still a work-in-process, feel free to make a pull request and I will look at it.</b><br><br><br>
 
+
+
 To get started run the following commands:<br>
-<code>
-git clone https://github.com/humzak711/PlagueRAT.git<br>
-cd PlagueRAT <br>
-go mod init packages<br>
-go mod tidy<br>
-pip3 install -r requirements.txt<br>
-</code>
+<code>git clone https://github.com/humzak711/PlagueRAT.git</code><br>
+<code>cd PlagueRAT && go mod init packages && go mod tidy && pip3 install -r requirements.txt</code><br>
 
 pre-requisites:<br>
 python 3.11<br>
 Golang compiler<br>
+
 
 
 <br><br><b>SCREENSHOTS:<br><br>
