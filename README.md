@@ -76,7 +76,7 @@ Supports end-to-end RSA encrypted communications with server<br>
 Basic rootkit *COMING SOON*<br>
 Basic anti-debugger *COMING SOON*<br>
 Reconnects to server incase of connection errors (prolongued access)- reconnecting to internet/server temporarily goes offline<br>
-Payloads are written in Golang<br><br><br>
+Payloads are written in Go<br><br><br>
 
 This is still a work-in-process, feel free to make a pull request and I will look at it.</b><br><br><br>
 
@@ -93,7 +93,7 @@ To get started run the following commands:<br>
 
 pre-requisites:<br>
 python 3.11<br>
-Golang compiler<br>
+Go compiler<br>
 
 
 
