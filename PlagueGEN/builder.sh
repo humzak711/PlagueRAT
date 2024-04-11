@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Prepare Go packages
+go mod  init "packages"
+go mod tidy
+
 # Prompt user for server IP address
 read -p "Enter the server IP address and port (IP:port): " server_ip
 
@@ -34,7 +38,7 @@ package main
 
 import (
 	"net"
-	"packages/PlagueGEN/Code/packages" // Import my local packages
+	"packages/Code/packages" // Import my local packages
 	"runtime"
 	"strings"
 )
@@ -76,7 +80,7 @@ package main
 
 import (
     "net"
-    "packages/PlagueGEN/Code/packages" // Import my local packages
+    "packages/Code/packages" // Import my local packages
     "runtime"
     "strings"
 )
@@ -128,5 +132,13 @@ if rm Code/main.go; then
     echo "main.go deleted from code directory"
 else
     echo "Error: Failed to delete main.go" >&2
+    exit 1
+fi
+
+# Delete go.MOD 
+if rm go.MOD; then
+    echo "go.MOD deleted successfully"
+else
+    echo "Error: Failed to delete go.MOD" >&2
     exit 1
 fi

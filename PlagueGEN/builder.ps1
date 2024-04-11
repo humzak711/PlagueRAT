@@ -4,6 +4,10 @@ $server_ip = Read-Host "Enter the server IP address and port (IP:port)"
 # Prompt user for encryption mode
 $use_encryption = Read-Host "Do you want to use encryption mode? [y]"
 
+# Prepare Go packages
+go mod init packages
+go mod tidy
+
 # Check if encryption mode is enabled
 if ($use_encryption -eq "y") {
     Write-Output "Encryption mode selected"
@@ -35,7 +39,7 @@ package main
 
 import (
     "net"
-    "packages/PlagueGEN/Code/packages" // Import my local packages
+    "packages/Code/packages" // Import my local packages
     "runtime"
     "strings"
 )
@@ -75,7 +79,7 @@ package main
 
 import (
     "net"
-    "packages/PlagueGEN/Code/packages" // Import my local packages
+    "packages/Code/packages" // Import my local packages
     "runtime"
     "strings"
 )
@@ -136,5 +140,15 @@ if ($LASTEXITCODE -eq 0) {
 } else {
     Write-Output "Error: Failed to delete main.go from Code directory"
     Write-Output $deleteOutput
+    exit 1
+}
+
+# Delete main.go from Code directory
+$deleteOutputgoMOD = Remove-Item -Path "go.MOD"
+if ($LASTEXITCODE -eq 0) {
+    Write-Output "Successfully deleted go.MOD"
+} else {
+    Write-Output "Error: Failed to delete go.MOD"
+    Write-Output $deleteOutputgoMOD
     exit 1
 }

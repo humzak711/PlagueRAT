@@ -1,4 +1,4 @@
-<h1>PlagueRAT (Alpha)</h1>
+<h1>PlagueRAT (Beta)</h1>
 
 
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣤⣶⣶⠶⠿⠟⠛⠛⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠛⠛⠿⠷⣶⣶⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -71,11 +71,10 @@ RSA client to work with 4096 bit RSA key pairs compatible with PlagueRCE and Pla
 
 PlagueGEN (Version 1)-<br>
 CLI payload builder to generate payloads fully compatible with PlagueRCE<br>
-Support for Windows, and most Unix flavours<br>
+Support for most Windows and Unix style operating systems<br>
 Connects to server via TCP reverse-shell<br>
 Supports end-to-end RSA encrypted communications with server<br>
-Basic rootkit *COMING SOON*<br>
-Basic anti-debugger *COMING SOON*<br>
+Basic windows rootkit builder *COMING SOON*<br>
 Reconnects to server incase of connection errors (prolongued access)- reconnecting to internet/server temporarily goes offline<br>
 Payloads are written in Go<br><br><br>
 
@@ -88,9 +87,6 @@ To get started run the following commands:<br>
 <code>git clone https://github.com/humzak711/PlagueRAT.git</code><br>
 <code>cd PlagueRAT</code><br>
 <code>pip3 install -r requirements.txt</code><br>
-<code>go mod init packages</code><br>
-<code>go mod tidy</code><br>
-
 
 pre-requisites:<br>
 python 3.11<br>
