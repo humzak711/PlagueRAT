@@ -136,9 +136,9 @@ else
 fi
 
 # Delete go.MOD 
-if rm go.MOD; then
-    echo "go.MOD deleted successfully"
+if rm go.mod; then
+    echo "go.mod deleted successfully"
 else
-    echo "Error: Failed to delete go.MOD" >&2
+    echo "Error: Failed to delete go.mod" >&2
     exit 1
 fi
