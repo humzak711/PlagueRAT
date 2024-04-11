@@ -5,8 +5,8 @@ import (
 	"unsafe"
 )
 
-// CreateToolhelp32Snapshot function retrieves a snapshot of the processes, heaps, modules, and threads running in the system
-func CreateToolhelp32Snapshot(dwFlags uint32, th32ProcessID uint32) (syscall.Handle, error) {
+// CreateToolhelp32SnapshotCustom function retrieves a snapshot of the processes, heaps, modules, and threads running in the system
+func CreateToolhelp32SnapshotCustom(dwFlags uint32, th32ProcessID uint32) (syscall.Handle, error) {
 	ret, _, err := ProcCreateToolhelp32Snapshot.Call(uintptr(dwFlags), uintptr(th32ProcessID))
 	if ret == uintptr(syscall.InvalidHandle) {
 		return syscall.InvalidHandle, err
@@ -14,8 +14,8 @@ func CreateToolhelp32Snapshot(dwFlags uint32, th32ProcessID uint32) (syscall.Han
 	return syscall.Handle(ret), err
 }
 
-// Process32First function retrieves information about the first process encountered in a system snapshot
-func Process32First(hSnapshot syscall.Handle, lppe *ProcessEntry32) (err error) {
+// Process32FirstCustom function retrieves information about the first process encountered in a system snapshot
+func Process32FirstCustom(hSnapshot syscall.Handle, lppe *ProcessEntry32) (err error) {
 	ret, _, err := ProcProcess32First.Call(uintptr(hSnapshot), uintptr(unsafe.Pointer(lppe)))
 	if ret == 0 {
 		return err
@@ -23,8 +23,8 @@ func Process32First(hSnapshot syscall.Handle, lppe *ProcessEntry32) (err error) 
 	return nil
 }
 
-// Process32Next function retrieves information about the next process recorded in a system snapshot
-func Process32Next(hSnapshot syscall.Handle, lppe *ProcessEntry32) (err error) {
+// Process32NextCustom function retrieves information about the next process recorded in a system snapshot
+func Process32NextCustom(hSnapshot syscall.Handle, lppe *ProcessEntry32) (err error) {
 	ret, _, err := ProcProcess32Next.Call(uintptr(hSnapshot), uintptr(unsafe.Pointer(lppe)))
 	if ret == 0 {
 		return err
@@ -41,19 +41,10 @@ func OpenProcessCustom(dwDesiredAccess uint32, bInheritHandle bool, dwProcessID 
 	return syscall.Handle(ret), err
 }
 
-// SetProcessDescription function sets the description of the specified process
-func SetProcessDescription(hProcess syscall.Handle, lpDescription *uint16) (err error) {
-	ret, _, err := ProcSetProcessDescription.Call(uintptr(hProcess), uintptr(unsafe.Pointer(lpDescription)))
-	if ret == 0 {
-		return err
-	}
-	return nil
-}
-
 // GetProcessHandleByName function retrieves the handle of the process by its name
 func GetProcessHandleByName(name string) (syscall.Handle, error) {
 	// Create a snapshot of running processes
-	snapshot, err := CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0)
+	snapshot, err := CreateToolhelp32SnapshotCustom(TH32CS_SNAPPROCESS, 0)
 	if err != nil {
 		return syscall.InvalidHandle, err
 	}
@@ -64,7 +55,7 @@ func GetProcessHandleByName(name string) (syscall.Handle, error) {
 	pe32.Size = uint32(unsafe.Sizeof(pe32))
 
 	// Iterate through processes to find the one with the specified name
-	err = Process32First(snapshot, &pe32)
+	err = Process32FirstCustom(snapshot, &pe32)
 	if err != nil {
 		return syscall.InvalidHandle, err
 	}
@@ -77,7 +68,7 @@ func GetProcessHandleByName(name string) (syscall.Handle, error) {
 		}
 
 		// Move to the next process
-		err = Process32Next(snapshot, &pe32)
+		err = Process32NextCustom(snapshot, &pe32)
 		if err != nil {
 			break
 		}
@@ -86,8 +77,8 @@ func GetProcessHandleByName(name string) (syscall.Handle, error) {
 	return syscall.InvalidHandle, syscall.ERROR_NOT_FOUND
 }
 
-// GetProcessPriority function gets the priority class of a process
-func GetProcessPriority(processHandle syscall.Handle) (uint32, error) {
+// GetPriorityClassCustom function gets the priority class of a process
+func GetPriorityClassCustom(processHandle syscall.Handle) (uint32, error) {
 	// Variable to store the priority class
 	var priorityClass uint32
 
@@ -100,23 +91,6 @@ func GetProcessPriority(processHandle syscall.Handle) (uint32, error) {
 
 	// Return the priority class
 	return priorityClass, nil
-}
-
-// ChangeProcessName function changes the name of the process to a new name
-func ChangeProcessName(pid syscall.Handle, newName string) error {
-	// Change the process name
-	name, err := syscall.UTF16FromString(newName)
-	if err != nil {
-		return err
-	}
-
-	// Set the process description (name)
-	err = SetProcessDescription(pid, &name[0])
-	if err != nil {
-		return err
-	}
-
-	return nil
 }
 
 // IsProcessAdmin function checks if a process has administrator privileges by directly querying for SeDebugPrivilege.

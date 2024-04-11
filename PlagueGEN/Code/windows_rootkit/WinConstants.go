@@ -76,27 +76,27 @@ const (
 
 // Functions from Windows API
 var (
-	Modkernel32 *syscall.LazyDLL = syscall.NewLazyDLL("kernel32.dll")
+	// LazyLoad DLL's
 	Kernel32DLL *syscall.LazyDLL = syscall.NewLazyDLL("kernel32.dll")
 	Modadvapi32 *syscall.LazyDLL = syscall.NewLazyDLL("advapi32.dll")
 
-	ProcCreateToolhelp32Snapshot *syscall.LazyProc = Modkernel32.NewProc("CreateToolhelp32Snapshot")
-	ProcProcess32First           *syscall.LazyProc = Modkernel32.NewProc("Process32First")
-	ProcProcess32Next            *syscall.LazyProc = Modkernel32.NewProc("Process32Next")
-	ProcOpenProcess              *syscall.LazyProc = Modkernel32.NewProc("OpenProcess")
-	ProcSetProcessDescription    *syscall.LazyProc = Modkernel32.NewProc("SetProcessDescription")
-	ProcOpenThread               *syscall.LazyProc = Modkernel32.NewProc("OpenThread")
-	ProcSuspendThread            *syscall.LazyProc = Modkernel32.NewProc("SuspendThread")
-	ProcResumeThread             *syscall.LazyProc = Modkernel32.NewProc("ResumeThread")
-	ProcGetThreadContext         *syscall.LazyProc = Modkernel32.NewProc("GetThreadContext")
-	ProcSetThreadContext         *syscall.LazyProc = Modkernel32.NewProc("SetThreadContext")
-	ProcGetPriorityClass         *syscall.LazyProc = Modkernel32.NewProc("GetPriorityClass")
+	// kernel32API
+	ProcCreateToolhelp32Snapshot *syscall.LazyProc = Kernel32DLL.NewProc("CreateToolhelp32Snapshot")
+	ProcProcess32First           *syscall.LazyProc = Kernel32DLL.NewProc("Process32First")
+	ProcProcess32Next            *syscall.LazyProc = Kernel32DLL.NewProc("Process32Next")
+	ProcOpenProcess              *syscall.LazyProc = Kernel32DLL.NewProc("OpenProcess")
+	ProcOpenThread               *syscall.LazyProc = Kernel32DLL.NewProc("OpenThread")
+	ProcSuspendThread            *syscall.LazyProc = Kernel32DLL.NewProc("SuspendThread")
+	ProcResumeThread             *syscall.LazyProc = Kernel32DLL.NewProc("ResumeThread")
+	ProcGetThreadContext         *syscall.LazyProc = Kernel32DLL.NewProc("GetThreadContext")
+	ProcSetThreadContext         *syscall.LazyProc = Kernel32DLL.NewProc("SetThreadContext")
+	ProcGetPriorityClass         *syscall.LazyProc = Kernel32DLL.NewProc("GetPriorityClass")
+	VirtualAllocEx               *syscall.LazyProc = Kernel32DLL.NewProc("VirtualAllocEx")
+	WriteProcessMemory           *syscall.LazyProc = Kernel32DLL.NewProc("WriteProcessMemory")
+	CreateRemoteThread           *syscall.LazyProc = Kernel32DLL.NewProc("CreateRemoteThread")
 
+	// Modadv32api
 	procOpenProcessToken      *syscall.LazyProc = Modadvapi32.NewProc("OpenProcessToken")
 	procGetTokenInformation   *syscall.LazyProc = Modadvapi32.NewProc("GetTokenInformation")
 	procLookupPrivilegeValueW *syscall.LazyProc = Modadvapi32.NewProc("LookupPrivilegeValueW")
-
-	VirtualAllocEx     *syscall.LazyProc = Kernel32DLL.NewProc("VirtualAllocEx")
-	WriteProcessMemory *syscall.LazyProc = Kernel32DLL.NewProc("WriteProcessMemory")
-	CreateRemoteThread *syscall.LazyProc = Kernel32DLL.NewProc("CreateRemoteThread")
 )
