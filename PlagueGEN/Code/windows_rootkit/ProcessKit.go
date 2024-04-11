@@ -33,7 +33,7 @@ func Process32Next(hSnapshot syscall.Handle, lppe *ProcessEntry32) (err error) {
 }
 
 // OpenProcess function opens an existing local process object
-func OpenProcess(dwDesiredAccess uint32, bInheritHandle bool, dwProcessID uint32) (syscall.Handle, error) {
+func OpenProcessCustom(dwDesiredAccess uint32, bInheritHandle bool, dwProcessID uint32) (syscall.Handle, error) {
 	ret, _, err := ProcOpenProcess.Call(uintptr(dwDesiredAccess), uintptr(BoolToUintptr(bInheritHandle)), uintptr(dwProcessID))
 	if ret == 0 {
 		return syscall.InvalidHandle, err
@@ -73,7 +73,7 @@ func GetProcessHandleByName(name string) (syscall.Handle, error) {
 		exeFile := syscall.UTF16ToString(pe32.ExeFile[:])
 		if exeFile == name {
 			// Found the process, open its handle
-			return OpenProcess(PROCESS_QUERY_INFORMATION|PROCESS_VM_READ|PROCESS_VM_WRITE|PROCESS_VM_OPERATION, false, pe32.ProcessID)
+			return OpenProcessCustom(PROCESS_QUERY_INFORMATION|PROCESS_VM_READ|PROCESS_VM_WRITE|PROCESS_VM_OPERATION, false, pe32.ProcessID)
 		}
 
 		// Move to the next process
