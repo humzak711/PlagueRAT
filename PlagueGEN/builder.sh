@@ -1,14 +1,14 @@
 #!/bin/bash
 
-# Prepare Go packages
-go mod  init "packages"
-go mod tidy
-
 # Prompt user for server IP address
 read -p "Enter the server IP address and port (IP:port): " server_ip
 
 # Prompt user for encryption mode
 read -p "Do you want to use encryption mode? [y]: " use_encryption
+
+# Prepare Go packages
+go mod  init "packages"
+go mod tidy
 
 # Check if encryption mode is enabled
 if [ "$use_encryption" == "y" ]; then
@@ -120,7 +120,7 @@ else
 fi
 
 # Move executable to Payloads directory
-if mv Code/main Payloads/main; then
+if mv Code/main Payloads/main.exe; then
     echo "Executable moved to Payloads directory"
 else
     echo "Error: Failed to move executable" >&2
