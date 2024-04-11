@@ -7,7 +7,7 @@ read -p "Enter the server IP address and port (IP:port): " server_ip
 read -p "Do you want to use encryption mode? [y]: " use_encryption
 
 # Prepare Go packages
-go mod  init "packages"
+go mod init "packages"
 go mod tidy
 
 # Check if encryption mode is enabled
