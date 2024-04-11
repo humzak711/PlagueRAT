@@ -15,7 +15,7 @@ func HijackThreadAdmin(targetProcessID uint32, targetThreadID uint32, targetAddr
 	defer syscall.CloseHandle(processHandle)
 
 	// Suspend the target thread
-	threadHandle, err := OpenThread(THREAD_SUSPEND_RESUME, false, targetThreadID)
+	threadHandle, err := OpenThreadCustom(THREAD_SUSPEND_RESUME, false, targetThreadID)
 	if err != nil {
 		return err
 	}

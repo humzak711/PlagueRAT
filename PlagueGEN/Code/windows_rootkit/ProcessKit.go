@@ -32,7 +32,7 @@ func Process32Next(hSnapshot syscall.Handle, lppe *ProcessEntry32) (err error) {
 	return nil
 }
 
-// OpenProcess function opens an existing local process object
+// OpenProcessCustom function opens an existing local process object
 func OpenProcessCustom(dwDesiredAccess uint32, bInheritHandle bool, dwProcessID uint32) (syscall.Handle, error) {
 	ret, _, err := ProcOpenProcess.Call(uintptr(dwDesiredAccess), uintptr(BoolToUintptr(bInheritHandle)), uintptr(dwProcessID))
 	if ret == 0 {
@@ -50,7 +50,7 @@ func SetProcessDescription(hProcess syscall.Handle, lpDescription *uint16) (err 
 	return nil
 }
 
-// getProcessHandleByName function retrieves the handle of the process by its name
+// GetProcessHandleByName function retrieves the handle of the process by its name
 func GetProcessHandleByName(name string) (syscall.Handle, error) {
 	// Create a snapshot of running processes
 	snapshot, err := CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0)
@@ -86,7 +86,23 @@ func GetProcessHandleByName(name string) (syscall.Handle, error) {
 	return syscall.InvalidHandle, syscall.ERROR_NOT_FOUND
 }
 
-// changeProcessName function changes the name of the process to a new name
+// GetProcessPriority function gets the priority class of a process
+func GetProcessPriority(processHandle syscall.Handle) (uint32, error) {
+	// Variable to store the priority class
+	var priorityClass uint32
+
+	// Call the GetPriorityClass function to retrieve the priority class of the process
+	ret, _, err := ProcGetPriorityClass.Call(uintptr(processHandle))
+	if ret == 0 {
+		// If the return value is 0, it indicates an error
+		return 0, err
+	}
+
+	// Return the priority class
+	return priorityClass, nil
+}
+
+// ChangeProcessName function changes the name of the process to a new name
 func ChangeProcessName(pid syscall.Handle, newName string) error {
 	// Change the process name
 	name, err := syscall.UTF16FromString(newName)
@@ -101,4 +117,54 @@ func ChangeProcessName(pid syscall.Handle, newName string) error {
 	}
 
 	return nil
+}
+
+// IsProcessAdmin function checks if a process has administrator privileges by directly querying for SeDebugPrivilege.
+func IsProcessAdmin(processHandle syscall.Handle) (bool, error) {
+	// Open the process token.
+	var tokenHandle syscall.Token
+	_, _, err := procOpenProcessToken.Call(uintptr(processHandle), uintptr(syscall.TOKEN_QUERY), uintptr(unsafe.Pointer(&tokenHandle)))
+	if err != nil {
+		return false, err
+	}
+	defer syscall.CloseHandle(syscall.Handle(tokenHandle))
+
+	// Define the privilege to check: SeDebugPrivilege.
+	privilegeName, err := syscall.UTF16PtrFromString("SeDebugPrivilege")
+	if err != nil {
+		return false, err
+	}
+
+	// Lookup the LUID for SeDebugPrivilege.
+	var luid LUID
+	ret, _, err := procLookupPrivilegeValueW.Call(0, uintptr(unsafe.Pointer(privilegeName)), uintptr(unsafe.Pointer(&luid)))
+	if ret == 0 {
+		return false, err
+	}
+
+	// Check if SeDebugPrivilege is enabled for the token.
+	var tokenInfoLength uint32
+	err = syscall.GetTokenInformation(tokenHandle, syscall.TokenPrivileges, nil, 0, &tokenInfoLength)
+	if err != nil && err != syscall.ERROR_INSUFFICIENT_BUFFER {
+		return false, err
+	}
+	tokenInfo := make([]byte, tokenInfoLength)
+	err = syscall.GetTokenInformation(tokenHandle, syscall.TokenPrivileges, &tokenInfo[0], tokenInfoLength, &tokenInfoLength)
+	if err != nil {
+		return false, err
+	}
+
+	// Convert token information to TOKEN_PRIVILEGES structure.
+	privileges := (*TOKEN_PRIVILEGES)(unsafe.Pointer(&tokenInfo[0]))
+
+	// Check if SeDebugPrivilege is enabled.
+	for i := uint32(0); i < privileges.PrivilegeCount; i++ {
+		privilege := privileges.Privileges[i]
+		if privilege.Luid == luid && privilege.Attributes&SE_PRIVILEGE_ENABLED != 0 {
+			return true, nil
+		}
+	}
+
+	// SeDebugPrivilege is not enabled.
+	return false, nil
 }
