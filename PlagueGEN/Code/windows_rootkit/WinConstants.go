@@ -55,9 +55,9 @@ var (
 	ProcGetThreadContext         *syscall.LazyProc = Kernel32DLL.NewProc("GetThreadContext")
 	ProcSetThreadContext         *syscall.LazyProc = Kernel32DLL.NewProc("SetThreadContext")
 	ProcGetPriorityClass         *syscall.LazyProc = Kernel32DLL.NewProc("GetPriorityClass")
-	ProcVirtualAllocEx           *syscall.LazyProc = Kernel32DLL.NewProc("VirtualAllocEx")
-	ProcWriteProcessMemory       *syscall.LazyProc = Kernel32DLL.NewProc("WriteProcessMemory")
-	ProcReadProcessMemory        *syscall.LazyProc = Kernel32DLL.NewProc("ReadProcessMemory")
+	VirtualAllocEx               *syscall.LazyProc = Kernel32DLL.NewProc("VirtualAllocEx")
+	WriteProcessMemory           *syscall.LazyProc = Kernel32DLL.NewProc("WriteProcessMemory")
+	ReadProcessMemory            *syscall.LazyProc = Kernel32DLL.NewProc("ReadProcessMemory")
 	ProcCreateRemoteThread       *syscall.LazyProc = Kernel32DLL.NewProc("CreateRemoteThread")
 
 	// advapi32
