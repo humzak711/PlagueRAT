@@ -74,7 +74,7 @@ CLI payload builder to generate payloads fully compatible with PlagueRCE<br>
 Support for Windows and Unix style operating systems<br>
 Connects to server via TCP reverse-shell<br>
 Supports end-to-end RSA encrypted communications with server<br>
-Basic Windows rootkit builder (Compatible with Windows 10/11) *COMING SOON*<br>
+Basic Windows rootkit builder (Compatible with Windows 10/11)<br>
 Reconnects to server incase of connection errors (prolongued access)- reconnecting to internet/server temporarily goes offline<br>
 Payloads are written in Go<br><br><br>
 
