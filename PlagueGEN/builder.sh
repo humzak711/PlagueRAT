@@ -135,7 +135,7 @@ else
     exit 1
 fi
 
-# Delete go.MOD 
+# Delete go.mod
 if rm go.mod; then
     echo "go.mod deleted successfully"
 else

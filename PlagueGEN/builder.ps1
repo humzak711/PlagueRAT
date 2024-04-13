@@ -143,7 +143,7 @@ if ($LASTEXITCODE -eq 0) {
     exit 1
 }
 
-# Delete main.go from Code directory
+# Delete go.mod
 $deleteOutputgoMOD = Remove-Item -Path "go.mod"
 if ($LASTEXITCODE -eq 0) {
     Write-Output "Successfully deleted go.mod"

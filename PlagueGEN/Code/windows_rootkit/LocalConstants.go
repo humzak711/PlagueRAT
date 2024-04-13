@@ -14,23 +14,14 @@ type ProcessEntry32 struct {
 	ExeFile         [MAX_PATH]uint16 // Path to the executable file.
 }
 
-// MODULEENTRY32 structure represents a module in the snapshot.
-type MODULEENTRY32 struct {
-	Size         uint32                      // The size of the structure, in bytes.
-	ModuleID     uint32                      // The identifier of the module.
-	ProcessID    uint32                      // The identifier of the process that contains the module.
-	GlblcntUsage uint32                      // Global usage count.
-	ProccntUsage uint32                      // Process usage count.
-	BaseAddress  uintptr                     // The base address of the module in the process's address space.
-	BaseSize     uint32                      // The size of the module.
-	Handle       uintptr                     // The module's handle.
-	ModuleName   [MAX_MODULE_NAME32 + 1]byte // The name of the module.
-	ExePath      [MAX_PATH]byte              // The path to the module executable.
-}
-
-// IMAGE_OPTIONAL_HEADER32 structure represents the optional header of a PE (Portable Executable) file.
-type IMAGE_OPTIONAL_HEADER32 struct {
-	AddressOfEntryPoint uint32 // The entry point address of the executable code.
+// ThreadEntry32 structure represents a thread in the snapshot.
+type ThreadEntry32 struct {
+	Size           uint32 // The size of the structure, in bytes.
+	ThreadID       uint32 // The thread identifier.
+	OwnerProcessID uint32 // The identifier of the process that owns the thread.
+	BasePriority   int32  // The base priority of the thread.
+	DeltaPriority  int32  // The delta priority of the thread.
+	Flags          uint32 // Thread flags.
 }
 
 // LUID structure represents a locally unique identifier.

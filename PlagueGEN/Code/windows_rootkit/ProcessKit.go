@@ -41,6 +41,36 @@ func OpenProcessCustom(dwDesiredAccess uint32, bInheritHandle bool, dwProcessID 
 	return syscall.Handle(ret), err
 }
 
+// FindProcessIDByName function finds the process ID by its name.
+func FindProcessIDByName(name string) (uint32, error) {
+	snapshot, err := CreateToolhelp32SnapshotCustom(TH32CS_SNAPPROCESS, 0)
+	if err != nil {
+		return 0, err
+	}
+	defer syscall.CloseHandle(snapshot)
+
+	var pe32 ProcessEntry32
+	pe32.Size = uint32(unsafe.Sizeof(pe32))
+
+	err = Process32FirstCustom(snapshot, &pe32)
+	if err != nil {
+		return 0, err
+	}
+
+	for {
+		var exeFile string = syscall.UTF16ToString(pe32.ExeFile[:])
+		if exeFile == name {
+			return pe32.ProcessID, nil
+		}
+		err = Process32NextCustom(snapshot, &pe32)
+		if err != nil {
+			break
+		}
+	}
+
+	return 0, syscall.ERROR_NOT_FOUND
+}
+
 // GetProcessHandleByName function retrieves the handle of the process by its name
 func GetProcessHandleByName(name string) (syscall.Handle, error) {
 	// Create a snapshot of running processes
@@ -61,7 +91,7 @@ func GetProcessHandleByName(name string) (syscall.Handle, error) {
 	}
 
 	for {
-		exeFile := syscall.UTF16ToString(pe32.ExeFile[:])
+		var exeFile string = syscall.UTF16ToString(pe32.ExeFile[:])
 		if exeFile == name {
 			// Found the process, open its handle
 			return OpenProcessCustom(PROCESS_QUERY_INFORMATION|PROCESS_VM_READ|PROCESS_VM_WRITE|PROCESS_VM_OPERATION, false, pe32.ProcessID)
@@ -97,7 +127,7 @@ func GetPriorityClassCustom(processHandle syscall.Handle) (uint32, error) {
 func IsProcessAdmin(processHandle syscall.Handle) (bool, error) {
 	// Open the process token.
 	var tokenHandle syscall.Token
-	_, _, err := procOpenProcessToken.Call(uintptr(processHandle), uintptr(syscall.TOKEN_QUERY), uintptr(unsafe.Pointer(&tokenHandle)))
+	_, _, err := ProcOpenProcessToken.Call(uintptr(processHandle), uintptr(syscall.TOKEN_QUERY), uintptr(unsafe.Pointer(&tokenHandle)))
 	if err != nil {
 		return false, err
 	}
@@ -111,7 +141,7 @@ func IsProcessAdmin(processHandle syscall.Handle) (bool, error) {
 
 	// Lookup the LUID for SeDebugPrivilege.
 	var luid LUID
-	ret, _, err := procLookupPrivilegeValueW.Call(0, uintptr(unsafe.Pointer(privilegeName)), uintptr(unsafe.Pointer(&luid)))
+	ret, _, err := ProcLookupPrivilegeValueW.Call(0, uintptr(unsafe.Pointer(privilegeName)), uintptr(unsafe.Pointer(&luid)))
 	if ret == 0 {
 		return false, err
 	}
@@ -122,18 +152,18 @@ func IsProcessAdmin(processHandle syscall.Handle) (bool, error) {
 	if err != nil && err != syscall.ERROR_INSUFFICIENT_BUFFER {
 		return false, err
 	}
-	tokenInfo := make([]byte, tokenInfoLength)
+	var tokenInfo []byte = make([]byte, tokenInfoLength)
 	err = syscall.GetTokenInformation(tokenHandle, syscall.TokenPrivileges, &tokenInfo[0], tokenInfoLength, &tokenInfoLength)
 	if err != nil {
 		return false, err
 	}
 
 	// Convert token information to TOKEN_PRIVILEGES structure.
-	privileges := (*TOKEN_PRIVILEGES)(unsafe.Pointer(&tokenInfo[0]))
+	var privileges *TOKEN_PRIVILEGES = (*TOKEN_PRIVILEGES)(unsafe.Pointer(&tokenInfo[0]))
 
 	// Check if SeDebugPrivilege is enabled.
 	for i := uint32(0); i < privileges.PrivilegeCount; i++ {
-		privilege := privileges.Privileges[i]
+		var privilege LUIDAndAttributes = privileges.Privileges[i]
 		if privilege.Luid == luid && privilege.Attributes&SE_PRIVILEGE_ENABLED != 0 {
 			return true, nil
 		}
